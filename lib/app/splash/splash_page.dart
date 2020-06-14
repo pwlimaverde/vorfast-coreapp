@@ -24,7 +24,7 @@ class _SplashPageState extends State<SplashPage> {
   }
 
   _next() async{
-    Modular.to.pushReplacementNamed("/home");
+    Modular.to.pushReplacementNamed("/");
   }
 
 

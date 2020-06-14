@@ -1,3 +1,4 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,13 @@ import 'shared/local_storage/local_storage.dart';
 import 'shared/theme/repositore/theme_interface.dart';
 import 'shared/theme/repositore/theme_repository.dart';
 import 'shared/theme/theme_controller.dart';
+import 'shared/widgets/drawer_core/drawer_core_controller.dart';
 import 'splash/splash_page.dart';
-
 
 class AppModule extends MainModule {
   @override
   List<Bind> get binds => [
+        Bind((i) => DrawerCoreController(), singleton: true),
         Bind<IThemeRepository>((i) => ThemeRepository(Firestore.instance)),
         Bind((i) => ThemeController(i.get())),
         Bind((i) => AppController()),
@@ -24,11 +26,11 @@ class AppModule extends MainModule {
   @override
   List<Router> get routers => [
         Router(
-          Modular.initialRoute,
+          "/sp",
           child: (_, args) => SplashPage(),
           transition: TransitionType.noTransition,
         ),
-        Router("/home", module: HomeModule()),
+        Router(Modular.initialRoute, module: HomeModule()),
       ];
 
   @override

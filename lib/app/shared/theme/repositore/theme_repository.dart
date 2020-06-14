@@ -22,6 +22,5 @@ class ThemeRepository implements IThemeRepository {
     }catch(e){
       return null;
     }
-
   }
 }
