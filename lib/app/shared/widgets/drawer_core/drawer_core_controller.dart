@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
 import 'drawer_core_widget.dart';
@@ -9,7 +10,7 @@ class DrawerCoreController = _DrawerCoreControllerBase
 
 abstract class _DrawerCoreControllerBase with Store {
 
-  drawerCoreWidget({int page}){
+  Widget drawerCoreWidget({int page}){
     return DrawerCoreWidget(
       page: page,
     );

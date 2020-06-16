@@ -1,10 +1,10 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:flutter/material.dart';
 //imports internos
 import 'app_controller.dart';
 import 'app_widget.dart';
+import 'modules/categorias/categorias_module.dart';
 import 'modules/home/home_module.dart';
 import 'shared/local_storage/local_storage.dart';
 import 'shared/theme/repositore/theme_interface.dart';
@@ -31,6 +31,7 @@ class AppModule extends MainModule {
           transition: TransitionType.noTransition,
         ),
         Router(Modular.initialRoute, module: HomeModule()),
+        Router("/categorias", module: CategoriasModule()),
       ];
 
   @override

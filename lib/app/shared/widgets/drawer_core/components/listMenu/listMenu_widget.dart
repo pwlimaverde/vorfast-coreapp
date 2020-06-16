@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ListMenuWidget extends StatelessWidget {
-  Widget header;
-  Widget body;
+  final Widget header;
+  final Widget body;
 
   ListMenuWidget({this.header, this.body});
 

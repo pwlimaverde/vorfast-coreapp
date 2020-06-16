@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class SliverAppbarHomeWidget extends StatelessWidget {
-  String title;
+  final String title;
 
 
   SliverAppbarHomeWidget(this.title);

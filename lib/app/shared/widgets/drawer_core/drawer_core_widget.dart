@@ -32,8 +32,8 @@ class DrawerCoreWidget extends StatelessWidget {
                   indice: 1,
                   page: page,
                   icon: Icons.list,
-                  tile: "Produtos",
-                  nav: "/sp",
+                  tile: "Categorias",
+                  nav: "/categorias",
                 ),
                 DrawerTileWidget(
                   indice: 2,

@@ -6,7 +6,7 @@ import '../../model/promo_model.dart';
 
 class SlivGridHomeWidget extends StatelessWidget {
 
-  List<PromoModel> listModel;
+  final List<PromoModel> listModel;
 
   SlivGridHomeWidget(this.listModel);
 
