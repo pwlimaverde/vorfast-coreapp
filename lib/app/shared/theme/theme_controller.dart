@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'package:coreapp/app/shared/local_storage/local_storage.dart';
-import 'package:coreapp/app/shared/theme/model/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
-
 //imports internos
+import 'model/theme_model.dart';
 import 'repositore/theme_interface.dart';
+import '../local_storage/local_storage.dart';
 
 part 'theme_controller.g.dart';
 
@@ -35,7 +33,7 @@ abstract class _ThemeControllerBase with Store {
   @action
   _setThemeLocal() async {
     localTheme = ThemeModel.fromJson(
-        json.decode(await LocalStorage.getValue("localTeheme")));
+        json.decode(await LocalStorage.getValue<String>("localTeheme")));
   }
 
   @computed
