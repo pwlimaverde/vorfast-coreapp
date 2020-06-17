@@ -6,6 +6,7 @@ import 'app_controller.dart';
 import 'app_widget.dart';
 import 'modules/categorias/categorias_module.dart';
 import 'modules/home/home_module.dart';
+import 'modules/produtos/produtos_module.dart';
 import 'shared/local_storage/local_storage.dart';
 import 'shared/theme/repositore/theme_interface.dart';
 import 'shared/theme/repositore/theme_repository.dart';
@@ -32,6 +33,7 @@ class AppModule extends MainModule {
         ),
         Router(Modular.initialRoute, module: HomeModule()),
         Router("/categorias", module: CategoriasModule()),
+        Router("/produtos", module: ProdutosModule()),
       ];
 
   @override

@@ -35,7 +35,9 @@ class _CategoriasPageState
             itemCount: controller.allCateg.length,
             itemBuilder: (context, index){
               CategoriasModel model = controller.allCateg[index];
-              return TileCategoriasWidget(model: model);
+              return TileCategoriasWidget(model: model, onTap: (){
+                Modular.to.pushNamed("/produtos", arguments: model);
+              },);
             },
           );
         }
