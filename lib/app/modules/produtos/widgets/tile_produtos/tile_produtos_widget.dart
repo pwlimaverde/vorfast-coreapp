@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 //Importes Internos
@@ -13,6 +14,9 @@ class TileProdutosWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: (){
+        Modular.link.pushNamed("/detalhes", arguments: [model]);
+      },
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
@@ -41,6 +45,7 @@ class TileProdutosWidget extends StatelessWidget {
                           Text(
                             model.nome,
                             style: TextStyle(fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             "R\$ ${model.preco.toStringAsFixed(2)}",
@@ -79,6 +84,7 @@ class TileProdutosWidget extends StatelessWidget {
                           Text(
                             model.nome,
                             style: TextStyle(fontWeight: FontWeight.w500),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           Text(
                             "R\$ ${model.preco.toStringAsFixed(2)}",

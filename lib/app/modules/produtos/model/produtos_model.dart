@@ -12,7 +12,7 @@ class ProdutosModel extends _ProdutosModelBase with _$ProdutosModel {
     int codigoBarras,
     String descricao,
     Map<String, dynamic> fichaTecnica,
-    Map<String, dynamic> detalhes,
+    List opcoes,
   }) : super(
           preco: preco,
           estoque: estoque,
@@ -21,7 +21,7 @@ class ProdutosModel extends _ProdutosModelBase with _$ProdutosModel {
           codigoBarras: codigoBarras,
           descricao: descricao,
           fichaTecnica: fichaTecnica,
-          detalhes: detalhes,
+          opcoes: opcoes,
         );
 
 //  Map<String, dynamic> toJson() {
@@ -51,16 +51,15 @@ class ProdutosModel extends _ProdutosModelBase with _$ProdutosModel {
     nome = doc['nome'];
     fichaTecnica = doc['ficha_tecnica'];
     codigoBarras = doc['codigo_barras'];
-    detalhes = doc['detalhes'];
     descricao = doc['descricao'];
+    opcoes = doc['opcoes'];
   }
 
   @override
   String toString() {
     // TODO: implement toString
-    return "Nome - $nome - Ficha - $fichaTecnica - id - $id";
+    return "Nome - $nome - id - $id";
   }
-
 }
 
 abstract class _ProdutosModelBase with Store {
@@ -74,7 +73,7 @@ abstract class _ProdutosModelBase with Store {
   int codigoBarras;
   String descricao;
   Map<String, dynamic> fichaTecnica;
-  Map<String, dynamic> detalhes;
+  List opcoes;
 
   _ProdutosModelBase({
     this.reference,
@@ -87,6 +86,6 @@ abstract class _ProdutosModelBase with Store {
     this.codigoBarras,
     this.descricao,
     this.fichaTecnica,
-    this.detalhes,
+    this.opcoes,
   });
 }

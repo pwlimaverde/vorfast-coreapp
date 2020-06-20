@@ -30,6 +30,7 @@ abstract class _ProdutosControllerBase with Store {
   void getProdCateg({CategoriasModel categoria}){
     setStatus(AppStatus.loading);
     prodCategoria = repo.getProdCateg(categoria: categoria).asObservable();
+    print("lista ${prodCategoria.value}");
     setStatus(AppStatus.success);
   }
 
