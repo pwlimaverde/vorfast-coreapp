@@ -39,7 +39,7 @@ abstract class _ThemeControllerBase with Store {
   @computed
   ThemeData get themeApp {
     if (fireTheme.value != null) {
-      print("tema set ${0xff8B008B}");
+      print("tema set ${0xffD8BFD8}");
 //      print("tema fire ${fireTheme.value}");
       LocalStorage.setValue<String>(
           "localTeheme", json.encode(fireTheme.value.toJson()));

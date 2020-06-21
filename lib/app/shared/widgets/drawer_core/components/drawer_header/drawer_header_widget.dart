@@ -37,7 +37,7 @@ class DrawerHeaderWidget extends StatelessWidget {
                   child: Text(
                     "Entre ou cadastre-se >",
                     style: TextStyle(
-                      color: Theme.of(context).buttonColor,
+                      color: Theme.of(context).accentColor,
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),

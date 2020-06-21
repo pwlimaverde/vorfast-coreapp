@@ -12,7 +12,9 @@ class ProdutosModel extends _ProdutosModelBase with _$ProdutosModel {
     int codigoBarras,
     String descricao,
     Map<String, dynamic> fichaTecnica,
-    List opcoes,
+    Map<String, dynamic> opcoes,
+    Map<String, dynamic> escolhas,
+    bool status,
   }) : super(
           preco: preco,
           estoque: estoque,
@@ -22,6 +24,8 @@ class ProdutosModel extends _ProdutosModelBase with _$ProdutosModel {
           descricao: descricao,
           fichaTecnica: fichaTecnica,
           opcoes: opcoes,
+          escolhas: escolhas,
+          status: status,
         );
 
 //  Map<String, dynamic> toJson() {
@@ -53,6 +57,7 @@ class ProdutosModel extends _ProdutosModelBase with _$ProdutosModel {
     codigoBarras = doc['codigo_barras'];
     descricao = doc['descricao'];
     opcoes = doc['opcoes'];
+    escolhas = doc['escolhas'];
   }
 
   @override
@@ -66,26 +71,53 @@ abstract class _ProdutosModelBase with Store {
   DocumentReference reference;
   String categoria;
   String id;
-  double preco;
-  int estoque;
-  List<String> imagens;
-  String nome;
-  int codigoBarras;
-  String descricao;
-  Map<String, dynamic> fichaTecnica;
-  List opcoes;
 
-  _ProdutosModelBase({
-    this.reference,
-    this.categoria,
-    this.id,
-    this.preco,
-    this.estoque,
-    this.imagens,
-    this.nome,
-    this.codigoBarras,
-    this.descricao,
-    this.fichaTecnica,
-    this.opcoes,
-  });
+  @observable
+  double preco;
+
+  @observable
+  int estoque;
+
+  @observable
+  List<String> imagens;
+
+  @observable
+  String nome;
+
+  int codigoBarras;
+
+  @observable
+  String descricao;
+
+  @observable
+  Map<String, dynamic> fichaTecnica;
+
+  @observable
+  Map<String, dynamic> opcoes;
+
+  @observable
+  Map<String, dynamic> escolhas;
+
+  @observable
+  bool status;
+
+  @action
+  setStatus(bool valor) {
+    status = valor;
+  }
+
+  _ProdutosModelBase(
+      {this.reference,
+      this.categoria,
+      this.id,
+      this.preco,
+      this.estoque,
+      this.imagens,
+      this.nome,
+      this.codigoBarras,
+      this.descricao,
+      this.fichaTecnica,
+      this.opcoes,
+      this.escolhas,
+      this.status});
 }
