@@ -1,7 +1,5 @@
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
-import '../../shared/widgets/drawer_core/drawer_core_controller.dart';
 import '../../shared/utilitario/app_status.dart';
 import 'model/promo_model.dart';
 import 'repositories/interfaces/home_repository_interface.dart';
@@ -20,11 +18,9 @@ abstract class _HomeControllerBase with Store {
   }
 
   //Controles Gerais
-  final controllerDrawer = Modular.get<DrawerCoreController>();
 
-  //Componentes page
-  get drawerCore => controllerDrawer.drawerCoreWidget(page: 0);
 
+  //Controles Internos
   @observable
   AppStatus status = AppStatus.none;
 

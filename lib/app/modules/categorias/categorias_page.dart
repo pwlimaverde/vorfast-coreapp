@@ -6,6 +6,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 //Importes Internos
 import 'categorias_controller.dart';
 import 'widgets/tile_categorias/tile_categorias_widget.dart';
+import '../../shared/widgets/widgets_core.dart' as widgetCore;
 
 class CategoriasPage extends StatefulWidget {
   final String title;
@@ -27,7 +28,7 @@ class _CategoriasPageState
         title: Text(widget.title),
         centerTitle: true,
       ),
-      drawer: controller.drawerCore,
+      drawer: widgetCore.DrawerCoreWidget(page: 1),
       backgroundColor: Colors.white,
       body: Observer(builder: (_) {
         if (controller.allCateg != null && controller.allCateg.length > 0) {

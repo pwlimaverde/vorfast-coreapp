@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'login_controller.dart';
+import '../../shared/widgets/widgets_core.dart' as widgetCore;
 
 class LoginPage extends StatefulWidget {
   final String title;
@@ -42,40 +44,38 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             ),
             Align(
               alignment: Alignment.centerRight,
-              child: controller.flatCoreEsqueci,
+              child: widgetCore.FlatbuttonCoreWidget(
+                title: "Esqueci minha senha",
+                onPressed: () {},
+              ),
+            ),
+            Align(
+              alignment: Alignment.centerRight,
+              child: widgetCore.FlatbuttonCoreWidget(
+                title: "CRIAR CONTA",
+                onPressed: () {},
+              ),
+            ),
+            SizedBox(
+              height: 16.0,
+            ),
+            widgetCore.RaisedbuttonCoreWidget(
+              icon: Icon(FontAwesomeIcons.user),
+              label: "Login com Email",
+              colorButton: Colors.blueGrey,
+              onPressed: () {},
             ),
             SizedBox(
               height: 8.0,
             ),
-            SizedBox(
-              height: 44.0,
-              child: RaisedButton(
-                onPressed: () {},
-                child: Text(
-                  "Entrar",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
-              ),
+            widgetCore.RaisedbuttonCoreWidget(
+              icon: Icon(FontAwesomeIcons.google),
+              label: "Login com Google",
+              colorButton: Colors.red,
+              onPressed: () {},
             ),
             SizedBox(
               height: 8.0,
-            ),
-            SizedBox(
-              height: 44.0,
-              child: RaisedButton(
-                color: Theme.of(context).buttonColor.withOpacity(0.5),
-                onPressed: () {},
-                child: Text(
-                  "Criar Conta",
-                  style: TextStyle(
-                    fontSize: 18.0,
-                    color: Theme.of(context).accentColor,
-                  ),
-                ),
-              ),
             ),
           ],
         ),

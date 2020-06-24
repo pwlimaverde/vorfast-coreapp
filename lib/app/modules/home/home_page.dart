@@ -4,10 +4,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 //imports internos
 import 'home_controller.dart';
 import '../../shared/utilitario/app_status.dart';
-import 'widgets/body_back_home/body_back_home_widget.dart';
-import 'widgets/sliv_grid_home/sliv_grid_home_widget.dart';
-import 'widgets/sliv_progress_home/sliv_progress_home_widget.dart';
-import 'widgets/sliver_appbar_home/sliver_appbar_home_widget.dart';
+import '../../shared/widgets/widgets_core.dart' as widgetCore;
 
 class HomePage extends StatefulWidget {
   final String title;
@@ -28,23 +25,23 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 //        child: Icon(Icons.add),
 //        onPressed: () {},
 //      ),
-      drawer: controller.drawerCore,
+      drawer: widgetCore.DrawerCoreWidget(page: 0),
       body: Stack(
         children: <Widget>[
-          BodyBackHomeWidget(),
+          widgetCore.GradientebackCoreWidget(),
           CustomScrollView(
             slivers: <Widget>[
-              SliverAppbarHomeWidget("Novidades"),
+              widgetCore.SlvAppbarWidget(title: "Novidades"),
               Observer(builder: (context) {
                 if (controller.status == AppStatus.success) {
                   if (controller.allPromo.data != null &&
                       controller.allPromo.data.length > 0) {
-                    return SlivGridHomeWidget(controller.allPromo.data);
+                    return widgetCore.SlvGridPromoModelWidget(listModel: controller.allPromo.data);
                   } else {
-                    return SlivProgressHomeWidget();
+                    return widgetCore.SlvProgressWidget();
                   }
                 } else {
-                  return SlivProgressHomeWidget();
+                  return widgetCore.SlvProgressWidget();
                 }
               }),
             ],
