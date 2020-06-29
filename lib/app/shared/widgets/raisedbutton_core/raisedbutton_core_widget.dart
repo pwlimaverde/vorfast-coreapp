@@ -8,24 +8,24 @@ class RaisedbuttonCoreWidget extends StatelessWidget {
   final String label;
   final Function onPressed;
 
-  const RaisedbuttonCoreWidget(
-      {Key key,
-      this.height,
-      this.icon,
-      this.colorText,
-      this.colorButton,
-      this.label,
-      this.onPressed})
-      : super(key: key);
+  const RaisedbuttonCoreWidget({
+    Key key,
+    this.height,
+    this.icon,
+    this.colorText,
+    this.colorButton,
+    this.label,
+    this.onPressed,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: height ?? 44.0,
       child: RaisedButton.icon(
-        textColor: colorText??Colors.white,
+        textColor: colorText ?? Colors.white,
         icon: icon,
-        color: colorButton??Colors.blue,
+        color: colorButton ?? Colors.blue,
         label: Text(label),
         onPressed: onPressed,
       ),

@@ -34,11 +34,14 @@ class _CategoriasPageState
         if (controller.allCateg != null && controller.allCateg.length > 0) {
           return ListView.builder(
             itemCount: controller.allCateg.length,
-            itemBuilder: (context, index){
+            itemBuilder: (context, index) {
               CategoriasModel model = controller.allCateg[index];
-              return TileCategoriasWidget(model: model, onTap: (){
-                Modular.to.pushNamed("/produtos", arguments: model);
-              },);
+              return TileCategoriasWidget(
+                model: model,
+                onTap: () {
+                  Modular.to.pushNamed("/produtos", arguments: model);
+                },
+              );
             },
           );
         }

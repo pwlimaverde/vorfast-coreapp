@@ -40,10 +40,10 @@ class AppModule extends MainModule {
           child: (_, args) => SplashPage(),
           transition: TransitionType.noTransition,
         ),
-        Router("/", module: HomeModule()),
+        Router("/home", module: HomeModule()),
         Router("/categorias", module: CategoriasModule()),
         Router("/produtos", module: ProdutosModule()),
-//        Router(Modular.initialRoute, module: LoginModule()),
+        Router(Modular.initialRoute, module: LoginModule()),
       ];
 
   @override

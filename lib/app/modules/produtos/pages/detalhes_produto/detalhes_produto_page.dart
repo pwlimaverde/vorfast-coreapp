@@ -2,9 +2,10 @@ import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'detalhes_produto_controller.dart';
-
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //Importes Internos
+import 'detalhes_produto_controller.dart';
+import '../../../../shared/widgets/widgets_core.dart' as widgetCore;
 import '../../model/produtos_model.dart';
 
 class DetalhesProdutoPage extends StatefulWidget {
@@ -146,21 +147,14 @@ class _DetalhesProdutoPageState
                   height: 16.0,
                 ),
                 Observer(builder: (context) {
-                  bool st = widget.model.status;
                   bool ativButton = widget.model.escolhas != null &&
                       widget.model.opcoes.length ==
                           widget.model.escolhas.length;
-                  return SizedBox(
-                    height: 44.0,
-                    child: RaisedButton(
-                      onPressed: ativButton ? () {} : null,
-                      child: Text("Adicionar ao Carrinho",
-                          style: TextStyle(
-                              fontSize: 18.0,
-                              color: ativButton
-                                  ? Theme.of(context).accentColor
-                                  : Colors.white)),
-                    ),
+                  return widgetCore.RaisedbuttonCoreWidget(
+                    icon: Icon(FontAwesomeIcons.cartPlus),
+                    label: "  Adicionar ao Carrinho",
+                    colorButton: Theme.of(context).accentColor,
+                    onPressed: ativButton ? () {} : null,
                   );
                 }),
                 SizedBox(
@@ -186,41 +180,49 @@ class _DetalhesProdutoPageState
                 SizedBox(
                   height: 16.0,
                 ),
-                widget.model.fichaTecnica != null?Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      "Ficha Técnica:",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 8.0,
-                    ),
-                    SizedBox(
-                      height: (60 * widget.model.fichaTecnica.length).toDouble(),
-                      child: ListView.builder(
-                        itemCount: widget.model.fichaTecnica.length,
-                        itemBuilder: (context, index) {
-                          MapEntry<String, dynamic> map = widget
-                              .model.fichaTecnica.entries
-                              .map((e) => e)
-                              .toList()[index];
-                          String key = map.key;
-                          String value = map.value;
-                          return Container(
-                            alignment: Alignment.centerLeft,
-                            color: index%2 > 0 ?Colors.grey[200]:Colors.grey[400],
-                            height: 30,
-                            child: Text("$key: $value", style: TextStyle(fontSize: 16.0),),
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ):Container(),
+                widget.model.fichaTecnica != null
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            "Ficha Técnica:",
+                            style: TextStyle(
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 8.0,
+                          ),
+                          SizedBox(
+                            height: (60 * widget.model.fichaTecnica.length)
+                                .toDouble(),
+                            child: ListView.builder(
+                              itemCount: widget.model.fichaTecnica.length,
+                              itemBuilder: (context, index) {
+                                MapEntry<String, dynamic> map = widget
+                                    .model.fichaTecnica.entries
+                                    .map((e) => e)
+                                    .toList()[index];
+                                String key = map.key;
+                                String value = map.value;
+                                return Container(
+                                  alignment: Alignment.centerLeft,
+                                  color: index % 2 > 0
+                                      ? Colors.grey[200]
+                                      : Colors.grey[400],
+                                  height: 30,
+                                  child: Text(
+                                    "$key: $value",
+                                    style: TextStyle(fontSize: 16.0),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
+                      )
+                    : Container(),
               ],
             ),
           ),
