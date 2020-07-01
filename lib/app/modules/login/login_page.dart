@@ -25,18 +25,24 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
         centerTitle: true,
       ),
       body: Form(
+        key: controller.loginFormKey,
         child: ListView(
           padding: EdgeInsets.all(16.0),
           children: <Widget>[
-            TextFormField(
-              decoration: InputDecoration(hintText: "E-mail"),
-              keyboardType: TextInputType.emailAddress,
+            widgetCore.FieldCoreWidget(
+              label: "E-mail",
+              hint: "Digite o e-mail",
+              keyBoard: TextInputType.emailAddress,
+              validator: controller.validatorEmail,
             ),
             SizedBox(
               height: 16.0,
             ),
-            TextFormField(
-              decoration: InputDecoration(hintText: "Senha"),
+            widgetCore.FieldCoreWidget(
+              label: "Senha",
+              hint: "Digite a Senha",
+              keyBoard: TextInputType.emailAddress,
+              validator: controller.validatorSenha,
               obscureText: true,
             ),
             SizedBox(
@@ -63,7 +69,9 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
               icon: Icon(FontAwesomeIcons.user),
               label: "Login com Email",
               colorButton: Colors.blueGrey,
-              onPressed: () {},
+              onPressed: () {
+                if (controller.loginFormKey.currentState.validate()) {}
+              },
             ),
             SizedBox(
               height: 8.0,

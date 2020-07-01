@@ -5,3 +5,4 @@ export 'raisedbutton_core/raisedbutton_core_widget.dart';
 export 'sliver_core/slv_appbar/slv_appbar_widget.dart';
 export 'sliver_core/slv_gridpromomodel/slv_gridpromomodel_widget.dart';
 export 'sliver_core/slv_progress/slv_progress_widget.dart';
+export 'field_core/field_core_widget.dart';
