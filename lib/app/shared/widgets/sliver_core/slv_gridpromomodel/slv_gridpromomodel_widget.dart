@@ -20,22 +20,22 @@ class SlvGridPromoModelWidget extends StatelessWidget {
           .toList(),
       children: listModel
           .map((model) => Container(
-        padding: EdgeInsets.only(left: 4.0, right: 4.0),
-        child: Card(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15.0),
-          ),
-          elevation: 1.0,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(15.0),
-            child: FadeInImage.memoryNetwork(
-              placeholder: kTransparentImage,
-              image: model.image,
-              fit: BoxFit.cover,
-            ),
-          ),
-        ),
-      ))
+                padding: EdgeInsets.only(left: 8.0, right: 8.0),
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  elevation: 1.0,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(10.0),
+                    child: FadeInImage.memoryNetwork(
+                      placeholder: kTransparentImage,
+                      image: model.image,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ))
           .toList(),
     );
   }

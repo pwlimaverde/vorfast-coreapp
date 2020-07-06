@@ -30,7 +30,8 @@ class AppModule extends MainModule {
         Bind((i) => ThemeController(i.get())),
         Bind((i) => LocalStorage()),
         Bind((i) => AuthController(i.get())),
-        Bind<IAuthRepository>((i) => AuthRepository(FirebaseAuth.instance)),
+        Bind<IAuthRepository>((i) => AuthRepository(
+            auth: FirebaseAuth.instance, fire: Firestore.instance)),
       ];
 
   @override
@@ -40,10 +41,10 @@ class AppModule extends MainModule {
           child: (_, args) => SplashPage(),
           transition: TransitionType.noTransition,
         ),
-        Router("/home", module: HomeModule()),
+        Router("/", module: HomeModule()),
         Router("/categorias", module: CategoriasModule()),
         Router("/produtos", module: ProdutosModule()),
-        Router(Modular.initialRoute, module: LoginModule()),
+        Router("/login", module: LoginModule()),
       ];
 
   @override

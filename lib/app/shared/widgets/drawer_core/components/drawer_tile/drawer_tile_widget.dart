@@ -15,29 +15,32 @@ class DrawerTileWidget extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        onTap: (){
+        onTap: () {
           _nav();
         },
         child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                colors: [
-                  Colors.transparent,
-                  indice==page?
-                  Theme.of(context).accentColor.withOpacity(0.1):Colors.transparent,
-                  Colors.transparent,
-                ],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.transparent,
+                indice == page
+                    ? Theme.of(context).accentColor.withOpacity(0.1)
+                    : Colors.transparent,
+                Colors.transparent,
+              ],
+              begin: Alignment.centerLeft,
+              end: Alignment.centerRight,
             ),
+          ),
           height: 60.0,
           child: Row(
             children: <Widget>[
               Icon(
                 icon,
                 size: 32,
-                color: indice==page?Theme.of(context).accentColor:Theme.of(context).accentColor.withOpacity(0.50),
+                color: indice == page
+                    ? Theme.of(context).accentColor
+                    : Theme.of(context).accentColor.withOpacity(0.50),
               ),
               SizedBox(
                 width: 16,
@@ -46,7 +49,9 @@ class DrawerTileWidget extends StatelessWidget {
                 tile,
                 style: TextStyle(
                   fontSize: 16.0,
-                  color: indice==page?Theme.of(context).accentColor:Theme.of(context).accentColor.withOpacity(0.75),
+                  color: indice == page
+                      ? Theme.of(context).accentColor
+                      : Theme.of(context).accentColor.withOpacity(0.75),
                 ),
               ),
             ],
@@ -58,7 +63,8 @@ class DrawerTileWidget extends StatelessWidget {
 
   _nav() {
     Modular.to.pop();
-    return page==indice?null:nav!=null?Modular.to.pushReplacementNamed("$nav"):null;
+    return page == indice
+        ? null
+        : nav != null ? Modular.to.pushReplacementNamed("$nav") : null;
   }
-
 }

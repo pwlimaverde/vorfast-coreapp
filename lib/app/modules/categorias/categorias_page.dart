@@ -23,32 +23,57 @@ class _CategoriasPageState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-        centerTitle: true,
-      ),
-      drawer: widgetCore.DrawerCoreWidget(page: 1),
-      backgroundColor: Colors.white,
-      body: Observer(builder: (_) {
-        if (controller.allCateg != null && controller.allCateg.length > 0) {
-          return ListView.builder(
-            itemCount: controller.allCateg.length,
-            itemBuilder: (context, index) {
-              CategoriasModel model = controller.allCateg[index];
-              return TileCategoriasWidget(
-                model: model,
-                onTap: () {
-                  Modular.to.pushNamed("/produtos", arguments: model);
-                },
-              );
-            },
-          );
-        }
+    return widgetCore.BodyCoreWidget(
+      page: 1,
+      title: "Categorias",
+      card: _card(),
+      // body: _body(),
+    );
+  }
+
+  // Widget _body() {
+  //   return Observer(builder: (_) {
+  //     if (controller.allCateg != null && controller.allCateg.length > 0) {
+  //       return SliverList(
+  //         delegate: SliverChildBuilderDelegate(
+  //           (context, index) {
+  //             CategoriasModel model = controller.allCateg[index];
+  //             return TileCategoriasWidget(
+  //               model: model,
+  //               onTap: () {
+  //                 Modular.to.pushNamed("/produtos", arguments: model);
+  //               },
+  //             );
+  //           },
+  //           childCount: controller.allCateg.length,
+  //         ),
+  //       );
+  //     } else {
+  //       return widgetCore.SlvProgressWidget();
+  //     }
+  //   });
+  // }
+
+  Widget _card() {
+    return Observer(builder: (_) {
+      if (controller.allCateg != null && controller.allCateg.length > 0) {
+        return ListView.builder(
+          itemCount: controller.allCateg.length,
+          itemBuilder: (context, index) {
+            CategoriasModel model = controller.allCateg[index];
+            return TileCategoriasWidget(
+              model: model,
+              onTap: () {
+                Modular.to.pushNamed("/produtos", arguments: model);
+              },
+            );
+          },
+        );
+      } else {
         return Center(
           child: CircularProgressIndicator(),
         );
-      }),
-    );
+      }
+    });
   }
 }

@@ -6,15 +6,17 @@ class FieldCoreWidget extends StatelessWidget {
   final String hint;
   final TextInputType keyBoard;
   final bool obscureText;
+  final TextEditingController controller;
 
-  const FieldCoreWidget({
-    Key key,
-    this.validator,
-    this.label,
-    this.hint,
-    this.keyBoard,
-    this.obscureText,
-  }) : super(key: key);
+  const FieldCoreWidget(
+      {Key key,
+      this.validator,
+      this.label,
+      this.hint,
+      this.keyBoard,
+      this.obscureText,
+      this.controller})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +25,7 @@ class FieldCoreWidget extends StatelessWidget {
         hintText: hint,
         labelText: label,
       ),
+      controller: controller,
       keyboardType: keyBoard,
       validator: validator,
       obscureText: obscureText ?? false,

@@ -6,7 +6,6 @@ import 'components/drawer_tile/drawer_tile_widget.dart';
 import 'components/listMenu/listMenu_widget.dart';
 
 class DrawerCoreWidget extends StatelessWidget {
-
   final int page;
 
   DrawerCoreWidget({this.page});
