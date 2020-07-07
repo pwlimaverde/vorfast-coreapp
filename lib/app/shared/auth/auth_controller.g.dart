@@ -55,6 +55,15 @@ mixin _$AuthController on _AuthControllerBase, Store {
     });
   }
 
+  final _$signInEmailLoginAsyncAction =
+      AsyncAction('_AuthControllerBase.signInEmailLogin');
+
+  @override
+  Future<void> signInEmailLogin({String email, String pass}) {
+    return _$signInEmailLoginAsyncAction
+        .run(() => super.signInEmailLogin(email: email, pass: pass));
+  }
+
   final _$novoEmailLoginAsyncAction =
       AsyncAction('_AuthControllerBase.novoEmailLogin');
 

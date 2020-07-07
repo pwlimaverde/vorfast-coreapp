@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class UserModel {
+  DocumentReference reference;
   String nome;
   String id;
   String email;
@@ -7,6 +10,7 @@ class UserModel {
   List<int> pedidos;
 
   UserModel({
+    this.reference,
     this.nome,
     this.id,
     this.email,
@@ -22,6 +26,18 @@ class UserModel {
     endereco = json['endereco'];
     pedidos = json['pedidos'].cast<int>();
     administrador = json['administrador'];
+  }
+
+  factory UserModel.fromDocument(DocumentSnapshot doc) {
+    return UserModel(
+      reference: doc.reference,
+      nome: doc['nome'],
+      id: doc['id'],
+      email: doc['email'],
+      endereco: doc['endereco'],
+      pedidos: doc['pedidos'],
+      administrador: doc['administrador'],
+    );
   }
 
   Map<String, dynamic> toJson() {

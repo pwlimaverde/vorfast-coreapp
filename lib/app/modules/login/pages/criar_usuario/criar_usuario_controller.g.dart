@@ -28,7 +28,8 @@ mixin _$CriarUsuarioController on _CriarUsuarioControllerBase, Store {
       AsyncAction('_CriarUsuarioControllerBase.setUserEmail');
 
   @override
-  Future<void> setUserEmail({VoidCallback onSuccess, VoidCallback onFail}) {
+  Future<void> setUserEmail(
+      {@required VoidCallback onSuccess, @required VoidCallback onFail}) {
     return _$setUserEmailAsyncAction
         .run(() => super.setUserEmail(onSuccess: onSuccess, onFail: onFail));
   }

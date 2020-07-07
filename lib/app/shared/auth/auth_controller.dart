@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:mobx/mobx.dart';
 //Importes Inteernos
 import 'model/user_model.dart';
@@ -33,14 +32,29 @@ abstract class _AuthControllerBase with Store {
   UserModel currentUserData;
 
   @action
+  Future<void> signInEmailLogin({String email, String pass}) async {
+    await repo.signInEmailLogin(email: email, pass: pass).then((value) async {
+      currentUser = value;
+      currentUserData = await repo.getUserData(value.uid);
+      setStatus(AppStatus.success);
+    }).catchError((e) {
+      currentUser = null;
+      currentUserData = null;
+      setStatus(AppStatus.error..valorSet = "Error - $e");
+    });
+  }
+
+  @action
   Future<void> novoEmailLogin({UserModel user, String pass}) async {
-    currentUser = await repo.novoEmailLogin(user: user, pass: pass);
-    if (currentUser != null) {
+    await repo.novoEmailLogin(user: user, pass: pass).then((value) {
+      currentUser = value;
       currentUserData = user;
       setStatus(AppStatus.success);
-    } else {
+    }).catchError((e) {
+      currentUser = null;
       currentUserData = null;
-    }
+      setStatus(AppStatus.error..valorSet = "Error - $e");
+    });
   }
 
   @action

@@ -1,10 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:coreapp/app/shared/utilitario/app_status.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //Importes Internos
-import '../auth_controller.dart';
 import 'interfaces/auth_repository_interface.dart';
 import '../model/user_model.dart';
 
@@ -15,22 +12,48 @@ class AuthRepository implements IAuthRepository {
 
   AuthRepository({this.auth, this.fire});
 
-  final AuthController authController = Modular.get();
+  @override
+  Future<UserModel> getUserData(String uid) {
+    try {
+      return fire.collection("user").document(uid).get().then((value) {
+        return UserModel.fromDocument(value);
+      });
+    } catch (e) {
+      return null;
+    }
+  }
+
+  @override
+  Future<FirebaseUser> signInEmailLogin({String email, String pass}) {
+    try {
+      return auth
+          .signInWithEmailAndPassword(
+        email: email,
+        password: pass,
+      )
+          .then((value) {
+        return value.user;
+      });
+    } catch (e) {
+      return null;
+    }
+  }
 
   @override
   Future<FirebaseUser> novoEmailLogin({UserModel user, String pass}) {
-    return auth
-        .createUserWithEmailAndPassword(
-      email: user.email,
-      password: pass,
-    )
-        .then((valor) async {
-      await _saveUserData(valor.user, user);
-      return valor.user;
-    }).catchError((e) {
-      authController.setStatus(AppStatus.error..valorSet = "Error - $e");
+    try {
+      return auth
+          .createUserWithEmailAndPassword(
+        email: user.email,
+        password: pass,
+      )
+          .then((valor) async {
+        await _saveUserData(valor.user, user);
+        return valor.user;
+      });
+    } catch (e) {
       return null;
-    });
+    }
   }
 
   Future<void> _saveUserData(FirebaseUser userFire, UserModel userData) async {

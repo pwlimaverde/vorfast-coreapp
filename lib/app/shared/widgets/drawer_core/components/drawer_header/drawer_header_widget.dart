@@ -64,6 +64,7 @@ class DrawerHeaderWidget extends StatelessWidget {
                       ),
                       onTap: () {
                         controllerAuth.singOut();
+                        Modular.to.pushReplacementNamed("/");
                       },
                     )
                   ],

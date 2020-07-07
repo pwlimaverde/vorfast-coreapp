@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 //Importes Internos
 import 'criar_usuario_controller.dart';
 import '../../../../shared/widgets/widgets_core.dart' as widgetCore;
@@ -101,11 +102,27 @@ class _CriarUsuarioPageState
                 colorButton: Colors.blueGrey,
                 onPressed: () {
                   if (controller.novoUserFormKey.currentState.validate()) {
-                    controller.setUserEmail().whenComplete(() {
-                      if (controller.status == AppStatus.success) {
-                        Modular.to.pushReplacementNamed("/");
-                      }
-                    });
+                    controller.setUserEmail(
+                      onSuccess: () {
+                        Get.snackbar(
+                          "Bem vindo ${controller.nomeController.text}",
+                          'Conta criada com sucesso',
+                          icon: Icon(FontAwesomeIcons.check),
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                        Future.delayed(Duration(seconds: 1)).then((_) {
+                          Modular.to.pushReplacementNamed("/");
+                        });
+                      },
+                      onFail: () {
+                        Get.snackbar(
+                          'Olá',
+                          'Não foi possível criar o usuario',
+                          icon: Icon(FontAwesomeIcons.meh),
+                          snackPosition: SnackPosition.BOTTOM,
+                        );
+                      },
+                    );
                   }
                 },
               );

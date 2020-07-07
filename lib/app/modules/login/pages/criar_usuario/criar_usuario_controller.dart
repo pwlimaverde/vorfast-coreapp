@@ -1,8 +1,6 @@
 import 'package:coreapp/app/shared/auth/model/user_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
 import '../../../../shared/auth/auth_controller.dart';
@@ -44,30 +42,23 @@ abstract class _CriarUsuarioControllerBase with Store {
 
   @action
   Future<void> setUserEmail(
-      {VoidCallback onSuccess, VoidCallback onFail}) async {
+      {@required VoidCallback onSuccess, @required VoidCallback onFail}) async {
     setStatus(AppStatus.loading);
     UserModel user = UserModel();
     user.nome = nomeController.text;
     user.email = emailController.text;
     user.endereco = enderecoController.text;
-    await authController.novoEmailLogin(user: user, pass: senhaController.text);
-    if (authController.currentUser != null) {
-      setStatus(AppStatus.success);
-      Get.snackbar(
-        "Bem vindo ${user.nome}",
-        'Conta criada com sucesso',
-        icon: Icon(FontAwesomeIcons.check),
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    } else {
-      setStatus(authController.status);
-      Get.snackbar(
-        'Olá',
-        'Não foi possível criar o usuario',
-        icon: Icon(FontAwesomeIcons.meh),
-        snackPosition: SnackPosition.BOTTOM,
-      );
-    }
+    await authController
+        .novoEmailLogin(user: user, pass: senhaController.text)
+        .then((value) {
+      if (authController.currentUser != null) {
+        setStatus(AppStatus.success);
+        onSuccess();
+      } else {
+        setStatus(authController.status);
+        onFail();
+      }
+    });
   }
 
   String validatorSenha(text) {
