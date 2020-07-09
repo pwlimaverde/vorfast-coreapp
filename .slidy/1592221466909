@@ -1,0 +1,8 @@
+lib/app/modules/categorias/categorias_module.dart
+lib/app/modules/categorias/categorias_page.dart
+test/app/modules/categorias/categorias_page_test.dart
+lib/app/modules/categorias/repositories/interfaces/categorias_repository_interface.dart
+lib/app/modules/categorias/categorias_controller.dart
+lib/app/modules/categorias/repositories/categorias_repository.dart
+test/app/modules/categorias/categorias_controller_test.dart
+test/app/modules/categorias/repositories/categorias_repository_test.dart

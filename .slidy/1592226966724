@@ -1,0 +1,2 @@
+lib/app/modules/categorias/widgets/tile_categorias/tile_categorias_widget.dart
+test/app/modules/categorias/widgets/tile_categorias/tile_categorias_widget_test.dart

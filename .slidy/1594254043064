@@ -1,0 +1,5 @@
+lib/app/modules/login/pages/novo_user/novo_user_module.dart
+lib/app/modules/login/pages/novo_user/novo_user_page.dart
+test/app/modules/login/pages/novo_user/novo_user_page_test.dart
+lib/app/modules/login/pages/novo_user/novo_user_controller.dart
+test/app/modules/login/pages/novo_user/novo_user_controller_test.dart

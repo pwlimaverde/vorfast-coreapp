@@ -1,0 +1,2 @@
+lib/app/shared/widgets/field_core/field_core_widget.dart
+test/app/shared/widgets/field_core/field_core_widget_test.dart
