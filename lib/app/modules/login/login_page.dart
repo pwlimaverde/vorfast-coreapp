@@ -5,6 +5,7 @@ import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'login_controller.dart';
+
 import '../../shared/widgets/widgets_core.dart' as widgetCore;
 
 class LoginPage extends StatefulWidget {
