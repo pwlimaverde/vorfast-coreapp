@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_modular/flutter_modular.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
-import '../../shared/auth/auth_controller.dart';
+import '../../shared/auth/auth_store.dart';
 import '../../shared/utilitario/app_status.dart';
 
 part 'login_controller.g.dart';
@@ -15,7 +14,7 @@ abstract class _LoginControllerBase with Store {
   final senhaController = TextEditingController();
   final emailController = TextEditingController();
 
-  final AuthController authController;
+  final AuthStore authController;
 
   _LoginControllerBase({@required this.authController});
 
@@ -33,13 +32,30 @@ abstract class _LoginControllerBase with Store {
     @required VoidCallback onSuccess,
     @required VoidCallback onFail,
   }) async {
-    setStatus(AppStatus.loading);
+    setStatus(AppStatus.loading..valorSet = "email");
     await authController
         .signInEmailLogin(
       email: emailController.text,
       pass: senhaController.text,
     )
         .then((_) {
+      if (authController.currentUser != null) {
+        setStatus(AppStatus.success);
+        onSuccess();
+      } else {
+        setStatus(authController.status);
+        onFail();
+      }
+    });
+  }
+
+  @action
+  Future<void> signInGoogleLogin({
+    @required VoidCallback onSuccess,
+    @required VoidCallback onFail,
+  }) async {
+    setStatus(AppStatus.loading..valorSet = "google");
+    await authController.signInGoogleLogin().then((_) {
       if (authController.currentUser != null) {
         setStatus(AppStatus.success);
         onSuccess();

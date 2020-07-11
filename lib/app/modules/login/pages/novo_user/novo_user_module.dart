@@ -1,14 +1,13 @@
 import 'package:flutter_modular/flutter_modular.dart';
 //Importes Internos
-import '../../../../shared/auth/auth_controller.dart';
+import '../../../../shared/auth/auth_store.dart';
 import 'novo_user_controller.dart';
 import 'novo_user_page.dart';
 
 class NovoUserModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind(
-            (i) => NovoUserController(authController: i.get<AuthController>())),
+        Bind((i) => NovoUserController(authController: i.get<AuthStore>())),
       ];
 
   @override

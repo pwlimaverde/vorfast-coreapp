@@ -76,7 +76,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             height: 16.0,
           ),
           Observer(builder: (context) {
-            if (controller.status == AppStatus.loading) {
+            if (controller.status == AppStatus.loading &&
+                controller.status.valorGet == "email") {
               return widgetCore.RaisedbuttonCoreWidget(
                 loading: true,
                 icon: Icon(FontAwesomeIcons.user),
@@ -99,7 +100,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           icon: Icon(FontAwesomeIcons.check),
                           snackPosition: SnackPosition.BOTTOM,
                         );
-                        Future.delayed(Duration(seconds: 1)).then((_) {
+                        Future.delayed(Duration(seconds: 2)).then((_) {
                           Modular.to.pop();
                           Modular.to.pushReplacementNamed("/");
                         });
@@ -121,15 +122,48 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           SizedBox(
             height: 8.0,
           ),
-          widgetCore.RaisedbuttonCoreWidget(
-            icon: Icon(FontAwesomeIcons.google),
-            label: "Login com Google",
-            colorButton: Colors.red,
-            onPressed: () {},
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
+          Observer(builder: (context) {
+            if (controller.status == AppStatus.loading &&
+                controller.status.valorGet == "google") {
+              return widgetCore.RaisedbuttonCoreWidget(
+                loading: true,
+                icon: Icon(FontAwesomeIcons.google),
+                label: "Login com Google",
+                colorButton: Colors.red,
+                onPressed: () {},
+              );
+            } else {
+              return widgetCore.RaisedbuttonCoreWidget(
+                icon: Icon(FontAwesomeIcons.google),
+                label: "Login com Google",
+                colorButton: Colors.red,
+                onPressed: () {
+                  controller.signInGoogleLogin(
+                    onSuccess: () {
+                      Get.snackbar(
+                        "Bem vindo ${controller.authController.currentUserData.nome}",
+                        'Login efetuado com sucesso',
+                        icon: Icon(FontAwesomeIcons.check),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                      Future.delayed(Duration(seconds: 2)).then((_) {
+                        Modular.to.pop();
+                        Modular.to.pushReplacementNamed("/");
+                      });
+                    },
+                    onFail: () {
+                      Get.snackbar(
+                        'Olá',
+                        'Não foi possível fazer o login',
+                        icon: Icon(FontAwesomeIcons.meh),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
+                  );
+                },
+              );
+            }
+          }),
         ],
       ),
     );

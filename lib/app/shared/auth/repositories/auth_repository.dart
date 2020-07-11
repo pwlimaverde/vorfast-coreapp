@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //Importes Internos
 import 'interfaces/auth_repository_interface.dart';
-import '../model/user_model.dart';
+import '../../model/user_model.dart';
 
 class AuthRepository implements IAuthRepository {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -48,7 +48,7 @@ class AuthRepository implements IAuthRepository {
         password: pass,
       )
           .then((valor) async {
-        await _saveUserData(valor.user, user);
+        await saveUserData(userFire: valor.user, userData: user);
         return valor.user;
       });
     } catch (e) {
@@ -56,7 +56,8 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
-  Future<void> _saveUserData(FirebaseUser userFire, UserModel userData) async {
+  @override
+  Future<void> saveUserData({FirebaseUser userFire, UserModel userData}) async {
     await fire.collection("user").document(userFire.uid).setData({
       'nome': userData.nome,
       'id': userFire.uid,
@@ -69,12 +70,6 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<void> singOut() async {
     await auth.signOut();
-  }
-
-  @override
-  Future getEmailLogin() {
-    // TODO: implement getEmailLogin
-    throw UnimplementedError();
   }
 
   @override
