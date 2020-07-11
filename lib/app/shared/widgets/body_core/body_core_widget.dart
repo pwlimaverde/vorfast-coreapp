@@ -6,8 +6,10 @@ class BodyCoreWidget extends StatelessWidget {
   final String title;
   final Widget body;
   final Widget card;
+  final bool isAdmin;
 
-  const BodyCoreWidget({Key key, this.page, this.title, this.body, this.card})
+  const BodyCoreWidget(
+      {Key key, this.page, this.title, this.body, this.card, this.isAdmin})
       : super(key: key);
 
   @override
@@ -19,7 +21,10 @@ class BodyCoreWidget extends StatelessWidget {
           widgetCore.GradientebackCoreWidget(),
           CustomScrollView(
             slivers: <Widget>[
-              widgetCore.SlvAppbarWidget(title: title),
+              widgetCore.SlvAppbarWidget(
+                title: title,
+                isAdmin: isAdmin,
+              ),
               body ??
                   SliverToBoxAdapter(
                     child: Container(

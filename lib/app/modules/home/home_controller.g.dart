@@ -9,6 +9,13 @@ part of 'home_controller.dart';
 // ignore_for_file: non_constant_identifier_names, unnecessary_lambdas, prefer_expression_function_bodies, lines_longer_than_80_chars, avoid_as, avoid_annotating_with_dynamic
 
 mixin _$HomeController on _HomeControllerBase, Store {
+  Computed<bool> _$isAdminComputed;
+
+  @override
+  bool get isAdmin => (_$isAdminComputed ??= Computed<bool>(() => super.isAdmin,
+          name: '_HomeControllerBase.isAdmin'))
+      .value;
+
   final _$statusAtom = Atom(name: '_HomeControllerBase.status');
 
   @override
@@ -68,7 +75,8 @@ mixin _$HomeController on _HomeControllerBase, Store {
   String toString() {
     return '''
 status: ${status},
-allPromo: ${allPromo}
+allPromo: ${allPromo},
+isAdmin: ${isAdmin}
     ''';
   }
 }

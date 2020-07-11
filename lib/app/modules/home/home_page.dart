@@ -21,6 +21,7 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   Widget build(BuildContext context) {
     return widgetCore.BodyCoreWidget(
+      isAdmin: controller.isAdmin,
       page: 1,
       title: "Novidades",
       body: _body(),

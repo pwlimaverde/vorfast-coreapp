@@ -85,7 +85,16 @@ class AuthRepository implements IAuthRepository {
 
     final FirebaseUser user =
         (await auth.signInWithCredential(credential)).user;
-    print("signed in " + user.displayName);
+
+    DocumentReference docRef = fire.collection("user").document(user.uid);
+    DocumentSnapshot doc = await docRef.get();
+    final exists = doc.exists;
+    if (!exists) {
+      UserModel userData = UserModel();
+      userData.nome = user.displayName;
+      userData.email = user.email;
+      await saveUserData(userFire: user, userData: userData);
+    }
     return user;
   }
 

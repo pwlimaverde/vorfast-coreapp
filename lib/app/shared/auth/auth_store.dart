@@ -65,14 +65,11 @@ abstract class _AuthStoreBase with Store {
   }
 
   Future<void> signInGoogleLogin() async {
-    FirebaseUser user = await repo.getGoogleLogin().catchError((e) async {
+    await repo.getGoogleLogin().then((user) async {
+      await setUser(user).then((_) => setStatus(AppStatus.success));
+    }).catchError((e) async {
       await setUser(null)
           .then((_) => setStatus(AppStatus.error..valorSet = "Error - $e"));
     });
-    UserModel userData = UserModel();
-    userData.nome = user.displayName;
-    userData.email = user.email;
-    await repo.saveUserData(userFire: user, userData: userData);
-    await setUser(user).then((_) => setStatus(AppStatus.success));
   }
 }

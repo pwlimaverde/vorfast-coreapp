@@ -3,24 +3,28 @@ import 'package:mobx/mobx.dart';
 import '../../shared/utilitario/app_status.dart';
 import 'model/promo_model.dart';
 import 'repositories/interfaces/home_repository_interface.dart';
-
+import '../../shared/auth/auth_store.dart';
 
 part 'home_controller.g.dart';
 
 class HomeController = _HomeControllerBase with _$HomeController;
 
 abstract class _HomeControllerBase with Store {
-
   final IHomeRepository repo;
+  final AuthStore auth;
 
-  _HomeControllerBase(this.repo){
+  _HomeControllerBase({this.repo, this.auth}) {
     getAllPromo();
   }
 
   //Controles Gerais
 
-
   //Controles Internos
+
+  @computed
+  bool get isAdmin =>
+      auth.currentUserData != null ? auth.currentUserData.administrador : false;
+
   @observable
   AppStatus status = AppStatus.none;
 
@@ -33,10 +37,9 @@ abstract class _HomeControllerBase with Store {
   ObservableStream<List<PromoModel>> allPromo;
 
   @action
-  void getAllPromo(){
+  void getAllPromo() {
     setStatus(AppStatus.loading);
     allPromo = repo.getAllPromo().asObservable();
     setStatus(AppStatus.success);
   }
-
 }
