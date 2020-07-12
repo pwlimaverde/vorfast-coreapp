@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
 import '../../shared/utilitario/app_status.dart';
@@ -17,13 +18,24 @@ abstract class _HomeControllerBase with Store {
     getAllPromo();
   }
 
+  final coresFormKey = GlobalKey<FormState>();
+  final primeController = TextEditingController();
+  final accentController = TextEditingController();
+
   //Controles Gerais
 
   //Controles Internos
+  @observable
+  String primeEditValido;
 
-  @computed
-  bool get isAdmin =>
-      auth.currentUserData != null ? auth.currentUserData.administrador : false;
+  @action
+  void setPrime(String valor) => primeEditValido = valor;
+
+  @observable
+  String accentEditValido;
+
+  @action
+  void setAccent(String valor) => accentEditValido = valor;
 
   @observable
   AppStatus status = AppStatus.none;
@@ -33,6 +45,10 @@ abstract class _HomeControllerBase with Store {
     status = valor;
   }
 
+  @computed
+  bool get isAdmin =>
+      auth.currentUserData != null ? auth.currentUserData.administrador : false;
+
   @observable
   ObservableStream<List<PromoModel>> allPromo;
 
@@ -41,5 +57,37 @@ abstract class _HomeControllerBase with Store {
     setStatus(AppStatus.loading);
     allPromo = repo.getAllPromo().asObservable();
     setStatus(AppStatus.success);
+  }
+
+  @observable
+  bool isEditeMode = false;
+
+  @action
+  void setEdite(bool value) => isEditeMode = value;
+
+  //Funcoes internas
+  String validatorCor(text) {
+    if (text.isEmpty || text.length != 6) {
+      return "Código da cor inválido";
+    } else {
+      return null;
+    }
+  }
+
+  Future<void> saveCor() async {
+    if (primeEditValido != null && primeEditValido.length == 6) {
+      await repo.saveCor(
+        key: "primaryColor",
+        cor: int.parse("0xff$primeEditValido"),
+        user: auth.currentUser,
+      );
+    }
+    if (accentEditValido != null && accentEditValido.length == 6) {
+      await repo.saveCor(
+        key: "accentColor",
+        cor: int.parse("0xff$accentEditValido"),
+        user: auth.currentUser,
+      );
+    }
   }
 }

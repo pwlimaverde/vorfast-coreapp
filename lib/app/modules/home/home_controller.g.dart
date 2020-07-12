@@ -16,6 +16,38 @@ mixin _$HomeController on _HomeControllerBase, Store {
           name: '_HomeControllerBase.isAdmin'))
       .value;
 
+  final _$primeEditValidoAtom =
+      Atom(name: '_HomeControllerBase.primeEditValido');
+
+  @override
+  String get primeEditValido {
+    _$primeEditValidoAtom.reportRead();
+    return super.primeEditValido;
+  }
+
+  @override
+  set primeEditValido(String value) {
+    _$primeEditValidoAtom.reportWrite(value, super.primeEditValido, () {
+      super.primeEditValido = value;
+    });
+  }
+
+  final _$accentEditValidoAtom =
+      Atom(name: '_HomeControllerBase.accentEditValido');
+
+  @override
+  String get accentEditValido {
+    _$accentEditValidoAtom.reportRead();
+    return super.accentEditValido;
+  }
+
+  @override
+  set accentEditValido(String value) {
+    _$accentEditValidoAtom.reportWrite(value, super.accentEditValido, () {
+      super.accentEditValido = value;
+    });
+  }
+
   final _$statusAtom = Atom(name: '_HomeControllerBase.status');
 
   @override
@@ -46,8 +78,45 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$isEditeModeAtom = Atom(name: '_HomeControllerBase.isEditeMode');
+
+  @override
+  bool get isEditeMode {
+    _$isEditeModeAtom.reportRead();
+    return super.isEditeMode;
+  }
+
+  @override
+  set isEditeMode(bool value) {
+    _$isEditeModeAtom.reportWrite(value, super.isEditeMode, () {
+      super.isEditeMode = value;
+    });
+  }
+
   final _$_HomeControllerBaseActionController =
       ActionController(name: '_HomeControllerBase');
+
+  @override
+  void setPrime(String valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setPrime');
+    try {
+      return super.setPrime(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setAccent(String valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setAccent');
+    try {
+      return super.setAccent(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   dynamic setStatus(AppStatus valor) {
@@ -72,10 +141,24 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void setEdite(bool value) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setEdite');
+    try {
+      return super.setEdite(value);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
+primeEditValido: ${primeEditValido},
+accentEditValido: ${accentEditValido},
 status: ${status},
 allPromo: ${allPromo},
+isEditeMode: ${isEditeMode},
 isAdmin: ${isAdmin}
     ''';
   }

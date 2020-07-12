@@ -7,10 +7,19 @@ class BodyCoreWidget extends StatelessWidget {
   final Widget body;
   final Widget card;
   final bool isAdmin;
+  final Icon icon;
+  final Widget editButton;
 
-  const BodyCoreWidget(
-      {Key key, this.page, this.title, this.body, this.card, this.isAdmin})
-      : super(key: key);
+  const BodyCoreWidget({
+    Key key,
+    this.page,
+    this.title,
+    this.body,
+    this.card,
+    this.isAdmin,
+    this.icon,
+    this.editButton,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +31,7 @@ class BodyCoreWidget extends StatelessWidget {
           CustomScrollView(
             slivers: <Widget>[
               widgetCore.SlvAppbarWidget(
+                editButton: editButton,
                 title: title,
                 isAdmin: isAdmin,
               ),

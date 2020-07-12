@@ -1,0 +1,2 @@
+lib/app/shared/widgets/sliver_core/slv_adapter/slv_adapter_widget.dart
+test/app/shared/widgets/sliver_core/slv_adapter/slv_adapter_widget_test.dart
