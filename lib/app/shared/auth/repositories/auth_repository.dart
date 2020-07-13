@@ -103,6 +103,15 @@ class AuthRepository implements IAuthRepository {
     return auth.currentUser();
   }
 
+  @override
+  Future<bool> recoveryPass({String email}) async {
+    return await auth.sendPasswordResetEmail(email: email).then((_) {
+      return true;
+    }).catchError((e) {
+      return false;
+    });
+  }
+
   //dispose will be called automatically
   @override
   void dispose() {}

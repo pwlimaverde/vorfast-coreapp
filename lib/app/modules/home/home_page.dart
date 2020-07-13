@@ -1,3 +1,5 @@
+import 'package:coreapp/app/modules/home/model/promo_model.dart';
+import 'package:coreapp/app/modules/home/model/secao_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -22,11 +24,18 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
   @override
   Widget build(BuildContext context) {
     return widgetCore.BodyCoreWidget(
-      editButton: observerEditButton(),
-      isAdmin: controller.isAdmin,
       page: 1,
-      title: "Novidades",
-      body: _body(),
+      slv: <Widget>[
+        widgetCore.SlvAppbarWidget(
+          editButton: observerEditButton(),
+          title: "Vorfast",
+          isAdmin: controller.isAdmin,
+        ),
+        widgetCore.SlvAdapterWidget(
+          adapter: Text("Novidades"),
+        ),
+        _body(),
+      ],
     );
   }
 
@@ -180,10 +189,12 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         );
       } else {
         if (controller.status == AppStatus.success) {
-          if (controller.allPromo.data != null &&
-              controller.allPromo.data.length > 0) {
+          if (controller.allSecao != null && controller.allSecao.length > 0) {
+            List<SecaoModel> secoes = controller.allSecao;
+            SecaoModel secao = secoes[1];
             return widgetCore.SlvGridPromoModelWidget(
-                listModel: controller.allPromo.data);
+              listModel: secao.anuncios,
+            );
           } else {
             return widgetCore.SlvProgressWidget();
           }

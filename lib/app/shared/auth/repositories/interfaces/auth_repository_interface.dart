@@ -9,5 +9,6 @@ abstract class IAuthRepository implements Disposable {
   Future<FirebaseUser> signInEmailLogin({String email, String pass});
   Future<UserModel> getUserData(String uid);
   Future<void> singOut();
+  Future<bool> recoveryPass({String email});
   Future<void> saveUserData({FirebaseUser userFire, UserModel userData});
 }

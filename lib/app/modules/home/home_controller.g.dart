@@ -78,6 +78,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$allSecaoAtom = Atom(name: '_HomeControllerBase.allSecao');
+
+  @override
+  List<SecaoModel> get allSecao {
+    _$allSecaoAtom.reportRead();
+    return super.allSecao;
+  }
+
+  @override
+  set allSecao(List<SecaoModel> value) {
+    _$allSecaoAtom.reportWrite(value, super.allSecao, () {
+      super.allSecao = value;
+    });
+  }
+
   final _$isEditeModeAtom = Atom(name: '_HomeControllerBase.isEditeMode');
 
   @override
@@ -91,6 +106,14 @@ mixin _$HomeController on _HomeControllerBase, Store {
     _$isEditeModeAtom.reportWrite(value, super.isEditeMode, () {
       super.isEditeMode = value;
     });
+  }
+
+  final _$getAllSecaoAsyncAction =
+      AsyncAction('_HomeControllerBase.getAllSecao');
+
+  @override
+  Future<void> getAllSecao() {
+    return _$getAllSecaoAsyncAction.run(() => super.getAllSecao());
   }
 
   final _$_HomeControllerBaseActionController =
@@ -158,6 +181,7 @@ primeEditValido: ${primeEditValido},
 accentEditValido: ${accentEditValido},
 status: ${status},
 allPromo: ${allPromo},
+allSecao: ${allSecao},
 isEditeMode: ${isEditeMode},
 isAdmin: ${isAdmin}
     ''';

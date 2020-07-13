@@ -1,3 +1,4 @@
+import 'package:coreapp/app/modules/home/model/secao_model.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
@@ -16,6 +17,7 @@ abstract class _HomeControllerBase with Store {
 
   _HomeControllerBase({this.repo, this.auth}) {
     getAllPromo();
+    getAllSecao();
   }
 
   final coresFormKey = GlobalKey<FormState>();
@@ -56,6 +58,16 @@ abstract class _HomeControllerBase with Store {
   void getAllPromo() {
     setStatus(AppStatus.loading);
     allPromo = repo.getAllPromo().asObservable();
+    setStatus(AppStatus.success);
+  }
+
+  @observable
+  List<SecaoModel> allSecao;
+
+  @action
+  Future<void> getAllSecao() async {
+    setStatus(AppStatus.loading);
+    allSecao = await repo.getAllSecao();
     setStatus(AppStatus.success);
   }
 

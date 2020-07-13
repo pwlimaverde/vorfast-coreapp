@@ -8,3 +8,4 @@ export 'sliver_core/slv_progress/slv_progress_widget.dart';
 export 'field_core/field_core_widget.dart';
 export 'body_core/body_core_widget.dart';
 export 'sliver_core/slv_adapter/slv_adapter_widget.dart';
+export 'sliver_core/slv_card/slv_card_widget.dart';

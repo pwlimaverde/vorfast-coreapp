@@ -72,4 +72,14 @@ abstract class _AuthStoreBase with Store {
           .then((_) => setStatus(AppStatus.error..valorSet = "Error - $e"));
     });
   }
+
+  Future<bool> recoverPass({String email}) async {
+    return await repo.recoveryPass(email: email).then((valor) {
+      if (valor) {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 }

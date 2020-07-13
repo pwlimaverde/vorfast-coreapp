@@ -82,4 +82,20 @@ abstract class _LoginControllerBase with Store {
       return null;
     }
   }
+
+  Future<void> recoverPass({
+    @required VoidCallback onSuccess,
+    @required VoidCallback onFail,
+  }) async {
+    await authController.recoverPass(email: emailController.text).then((valor) {
+      if (valor) {
+        print(valor);
+        setStatus(AppStatus.success);
+        onSuccess();
+      } else {
+        setStatus(AppStatus.error);
+        onFail();
+      }
+    });
+  }
 }

@@ -23,9 +23,17 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return widgetCore.BodyCoreWidget(
-      title: "Login",
       page: 0,
-      card: buildForm(),
+      slv: <Widget>[
+        widgetCore.SlvAppbarWidget(
+          // editButton: observerEditButton(),
+          title: "Login",
+          // isAdmin: controller.isAdmin,
+        ),
+        widgetCore.SlvCardWidget(
+          body: buildForm(),
+        ),
+      ],
     );
   }
 
@@ -60,7 +68,35 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             alignment: Alignment.centerRight,
             child: widgetCore.FlatbuttonCoreWidget(
               title: "Esqueci minha senha",
-              onPressed: () {},
+              onPressed: () {
+                if (controller.emailController.text.isEmpty) {
+                  Get.snackbar(
+                    'Olá',
+                    'Insira seu e-mail para recuperação!',
+                    icon: Icon(FontAwesomeIcons.meh),
+                    snackPosition: SnackPosition.BOTTOM,
+                  );
+                } else {
+                  controller.recoverPass(
+                    onSuccess: () {
+                      Get.snackbar(
+                        'Olá',
+                        'Confira seu e-mail para recuperar a senha!',
+                        icon: Icon(FontAwesomeIcons.check),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
+                    onFail: () {
+                      Get.snackbar(
+                        'Olá',
+                        'Falha ao tentar recuperar o e-mail!',
+                        icon: Icon(FontAwesomeIcons.check),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
+                  );
+                }
+              },
             ),
           ),
           Align(
