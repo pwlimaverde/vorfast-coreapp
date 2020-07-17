@@ -81,13 +81,13 @@ mixin _$HomeController on _HomeControllerBase, Store {
   final _$allSecaoAtom = Atom(name: '_HomeControllerBase.allSecao');
 
   @override
-  List<SecaoModel> get allSecao {
+  ObservableStream<List<SecaoModel>> get allSecao {
     _$allSecaoAtom.reportRead();
     return super.allSecao;
   }
 
   @override
-  set allSecao(List<SecaoModel> value) {
+  set allSecao(ObservableStream<List<SecaoModel>> value) {
     _$allSecaoAtom.reportWrite(value, super.allSecao, () {
       super.allSecao = value;
     });
@@ -106,14 +106,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
     _$isEditeModeAtom.reportWrite(value, super.isEditeMode, () {
       super.isEditeMode = value;
     });
-  }
-
-  final _$getAllSecaoAsyncAction =
-      AsyncAction('_HomeControllerBase.getAllSecao');
-
-  @override
-  Future<void> getAllSecao() {
-    return _$getAllSecaoAsyncAction.run(() => super.getAllSecao());
   }
 
   final _$_HomeControllerBaseActionController =
@@ -153,11 +145,22 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  void getAllPromo() {
+  dynamic getAllPromo() {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.getAllPromo');
     try {
       return super.getAllPromo();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void getAllSecao() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.getAllSecao');
+    try {
+      return super.getAllSecao();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }

@@ -11,29 +11,31 @@ class HomeRepository implements IHomeRepository {
   HomeRepository(this.firestore);
 
   @override
-  Future<List<SecaoModel>> getAllSecao() async {
-    List<SecaoModel> listT =
-        await firestore.collection("secao").getDocuments().then((query) {
+  Stream<List<SecaoModel>> getAllSecao() {
+    return firestore
+        .collection("secao")
+        .orderBy("prioridade", descending: true)
+        .snapshots()
+        .map((query) {
       return query.documents.map((doc) {
-        return SecaoModel.fromDocument(doc);
+        getPromo(doc.reference);
+        return SecaoModel.fromDocument(doc, getPromo(doc.reference));
       }).toList();
     });
-    List<SecaoModel> listOk = [];
-    for (SecaoModel secao in listT) {
-      secao.anuncios = await _getAnuncios(secao.reference);
-      listOk.add(secao);
-    }
-    return listOk;
+    // print("vindo da repo - $listT");
+    // List<SecaoModel> listOk = [];
+    // for (SecaoModel secao in listT) {
+    //   secao.anuncios = await _getAnuncios(secao.reference);
+    //   listOk.add(secao);
+    // }
   }
 
-  Future<List<PromoModel>> _getAnuncios(DocumentReference doc) async {
-    List<PromoModel> list =
-        await doc.collection("anuncios").getDocuments().then((query) {
+  Stream<List<PromoModel>> getPromo(DocumentReference doc) {
+    return doc.collection("anuncios").snapshots().map((query) {
       return query.documents.map((doc) {
         return PromoModel.fromDocument(doc);
       }).toList();
     });
-    return list;
   }
 
   @override

@@ -5,7 +5,7 @@ class SecaoModel {
   DocumentReference reference;
   String nome;
   bool scrow;
-  List<PromoModel> anuncios;
+  Stream<List<PromoModel>> anuncios;
 
   SecaoModel({
     this.reference,
@@ -14,12 +14,13 @@ class SecaoModel {
     this.anuncios,
   });
 
-  factory SecaoModel.fromDocument(DocumentSnapshot doc) {
+  factory SecaoModel.fromDocument(
+      DocumentSnapshot doc, Stream<List<PromoModel>> anuncios) {
     return SecaoModel(
       reference: doc.reference,
       nome: doc['nome'],
       scrow: doc['scrow'],
-      anuncios: doc['anuncios'],
+      anuncios: anuncios,
     );
   }
 

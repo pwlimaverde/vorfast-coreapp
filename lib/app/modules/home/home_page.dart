@@ -1,18 +1,15 @@
-import 'package:coreapp/app/modules/home/model/promo_model.dart';
 import 'package:coreapp/app/modules/home/model/secao_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //imports internos
 import 'home_controller.dart';
-import '../../shared/utilitario/app_status.dart';
 import '../../shared/widgets/widgets_core.dart' as widgetCore;
 
 class HomePage extends StatefulWidget {
   final String title;
 
-  const HomePage({Key key, this.title = "Home"}) : super(key: key);
+  const HomePage({Key key, this.title = "VorFast"}) : super(key: key);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -23,185 +20,221 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return widgetCore.BodyCoreWidget(
-      page: 1,
-      slv: <Widget>[
-        widgetCore.SlvAppbarWidget(
-          editButton: observerEditButton(),
-          title: "Vorfast",
-          isAdmin: controller.isAdmin,
-        ),
-        widgetCore.SlvAdapterWidget(
-          adapter: Text("Novidades"),
-        ),
-        _body(),
-      ],
-    );
-  }
-
-  Observer observerEditButton() {
     return Observer(builder: (_) {
-      if (controller.isEditeMode) {
-        return IconButton(
-          icon: Icon(FontAwesomeIcons.check),
-          onPressed: () {
-            controller.saveCor();
-            controller.setEdite(!controller.isEditeMode);
-          },
-        );
-      } else {
-        return IconButton(
-          icon: Icon(FontAwesomeIcons.pencilAlt),
-          onPressed: () {
-            controller.setEdite(!controller.isEditeMode);
-          },
-        );
-      }
+      return widgetCore.BodyCoreWidget(
+        page: 1,
+        slv: controller.allSecao.data != null &&
+                controller.allSecao.data.length > 0
+            ? listSlv(controller)
+            : [
+                widgetCore.SlvAppbarWidget(
+                  editButton: controller.observerEditButton(),
+                  title: "VorFast",
+                  isAdmin: controller.isAdmin,
+                ),
+                widgetCore.SlvProgressWidget(),
+              ],
+      );
     });
   }
 
-  Observer _body() {
-    return Observer(builder: (context) {
-      if (controller.isEditeMode) {
-        return widgetCore.SlvAdapterWidget(
-          adapter: Container(
-            height: 220,
-            child: Card(
-              child: Form(
-                key: controller.coresFormKey,
-                child: ListView(
-                  padding: EdgeInsets.all(16.0),
-                  children: <Widget>[
-                    Center(child: Text("Edição das Cores do Tema")),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Expanded(
-                          child: widgetCore.FieldCoreWidget(
-                            prefix: "# ",
-                            controller: controller.primeController,
-                            label: "Cor Primaria (#000000)",
-                            hint: "Digite o Código da Cor Hexadecimal",
-                            validator: controller.validatorCor,
-                            maxLength: 6,
-                            onChanged: (valor) {
-                              controller.setPrime(valor);
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 4.0,
-                        ),
-                        Observer(builder: (_) {
-                          if (controller.primeEditValido != null &&
-                              controller.primeEditValido.length == 6) {
-                            return Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  color: Color(int.parse(
-                                      "0xff${controller.primeEditValido}")),
-                                ),
-                                Text(
-                                  "Cor nova",
-                                  style: TextStyle(fontSize: 13),
-                                )
-                              ],
-                            );
-                          } else {
-                            return Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  color: Theme.of(context).primaryColor,
-                                ),
-                                Text(
-                                  "Cor atual",
-                                  style: TextStyle(fontSize: 13),
-                                )
-                              ],
-                            );
-                          }
-                        }),
-                      ],
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.end,
-                      children: <Widget>[
-                        Expanded(
-                          child: widgetCore.FieldCoreWidget(
-                            prefix: "# ",
-                            controller: controller.accentController,
-                            label: "Cor Secundaria (#000000)",
-                            hint: "Digite o Código da Cor Hexadecimal",
-                            validator: controller.validatorCor,
-                            maxLength: 6,
-                            onChanged: (valor) {
-                              controller.setAccent(valor);
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          width: 4.0,
-                        ),
-                        Observer(builder: (_) {
-                          if (controller.accentEditValido != null &&
-                              controller.accentEditValido.length == 6) {
-                            return Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  color: Color(int.parse(
-                                      "0xff${controller.accentEditValido}")),
-                                ),
-                                Text(
-                                  "Cor nova",
-                                  style: TextStyle(fontSize: 13),
-                                )
-                              ],
-                            );
-                          } else {
-                            return Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 60,
-                                  width: 60,
-                                  color: Theme.of(context).accentColor,
-                                ),
-                                Text(
-                                  "Cor atual",
-                                  style: TextStyle(fontSize: 13),
-                                )
-                              ],
-                            );
-                          }
-                        }),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ),
-        );
-      } else {
-        if (controller.status == AppStatus.success) {
-          if (controller.allSecao != null && controller.allSecao.length > 0) {
-            List<SecaoModel> secoes = controller.allSecao;
-            SecaoModel secao = secoes[1];
+  List<Widget> listSlv(HomeController controller) {
+    List<Widget> slv = List<Widget>();
+    slv.insert(
+        0,
+        widgetCore.SlvAppbarWidget(
+          editButton: controller.observerEditButton(),
+          title: "VorFast",
+          isAdmin: controller.isAdmin,
+        ));
+    for (SecaoModel secao in controller.allSecao.data) {
+      slv.add(widgetCore.SlvHeaderWidget(
+        title: secao.nome,
+        color: Colors.amber,
+      ));
+      slv.add(streamBuilder(secao));
+    }
+    return slv;
+  }
+
+  Widget streamBuilder(SecaoModel secao) {
+    return StreamBuilder<Object>(
+        stream: secao.anuncios,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
             return widgetCore.SlvGridPromoModelWidget(
-              listModel: secao.anuncios,
+              listModel: snapshot.data,
             );
           } else {
             return widgetCore.SlvProgressWidget();
           }
-        } else {
-          return widgetCore.SlvProgressWidget();
-        }
-      }
-    });
+        });
   }
+
+  // Observer _body() {
+  //   return Observer(builder: (context) {
+  //     if (controller.isEditeMode) {
+  //       return widgetCore.SlvAdapterWidget(
+  //         adapter: Container(
+  //           height: 220,
+  //           child: Card(
+  //             child: Form(
+  //               key: controller.coresFormKey,
+  //               child: ListView(
+  //                 padding: EdgeInsets.all(16.0),
+  //                 children: <Widget>[
+  //                   Center(child: Text("Edição das Cores do Tema")),
+  //                   Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.end,
+  //                     children: <Widget>[
+  //                       Expanded(
+  //                         child: widgetCore.FieldCoreWidget(
+  //                           prefix: "# ",
+  //                           controller: controller.primeController,
+  //                           label: "Cor Primaria (#000000)",
+  //                           hint: "Digite o Código da Cor Hexadecimal",
+  //                           validator: controller.validatorCor,
+  //                           maxLength: 6,
+  //                           onChanged: (valor) {
+  //                             controller.setPrime(valor);
+  //                           },
+  //                         ),
+  //                       ),
+  //                       SizedBox(
+  //                         width: 4.0,
+  //                       ),
+  //                       Observer(builder: (_) {
+  //                         if (controller.primeEditValido != null &&
+  //                             controller.primeEditValido.length == 6) {
+  //                           return Column(
+  //                             children: <Widget>[
+  //                               Container(
+  //                                 height: 60,
+  //                                 width: 60,
+  //                                 color: Color(int.parse(
+  //                                     "0xff${controller.primeEditValido}")),
+  //                               ),
+  //                               Text(
+  //                                 "Cor nova",
+  //                                 style: TextStyle(fontSize: 13),
+  //                               )
+  //                             ],
+  //                           );
+  //                         } else {
+  //                           return Column(
+  //                             children: <Widget>[
+  //                               Container(
+  //                                 height: 60,
+  //                                 width: 60,
+  //                                 color: Theme.of(context).primaryColor,
+  //                               ),
+  //                               Text(
+  //                                 "Cor atual",
+  //                                 style: TextStyle(fontSize: 13),
+  //                               )
+  //                             ],
+  //                           );
+  //                         }
+  //                       }),
+  //                     ],
+  //                   ),
+  //                   Row(
+  //                     crossAxisAlignment: CrossAxisAlignment.end,
+  //                     children: <Widget>[
+  //                       Expanded(
+  //                         child: widgetCore.FieldCoreWidget(
+  //                           prefix: "# ",
+  //                           controller: controller.accentController,
+  //                           label: "Cor Secundaria (#000000)",
+  //                           hint: "Digite o Código da Cor Hexadecimal",
+  //                           validator: controller.validatorCor,
+  //                           maxLength: 6,
+  //                           onChanged: (valor) {
+  //                             controller.setAccent(valor);
+  //                           },
+  //                         ),
+  //                       ),
+  //                       SizedBox(
+  //                         width: 4.0,
+  //                       ),
+  //                       Observer(builder: (_) {
+  //                         if (controller.accentEditValido != null &&
+  //                             controller.accentEditValido.length == 6) {
+  //                           return Column(
+  //                             children: <Widget>[
+  //                               Container(
+  //                                 height: 60,
+  //                                 width: 60,
+  //                                 color: Color(int.parse(
+  //                                     "0xff${controller.accentEditValido}")),
+  //                               ),
+  //                               Text(
+  //                                 "Cor nova",
+  //                                 style: TextStyle(fontSize: 13),
+  //                               )
+  //                             ],
+  //                           );
+  //                         } else {
+  //                           return Column(
+  //                             children: <Widget>[
+  //                               Container(
+  //                                 height: 60,
+  //                                 width: 60,
+  //                                 color: Theme.of(context).accentColor,
+  //                               ),
+  //                               Text(
+  //                                 "Cor atual",
+  //                                 style: TextStyle(fontSize: 13),
+  //                               )
+  //                             ],
+  //                           );
+  //                         }
+  //                       }),
+  //                     ],
+  //                   ),
+  //                 ],
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       );
+  //     } else {
+  //       if (controller.status == AppStatus.success) {
+  //         if (controller.allSecao != null &&
+  //             controller.allSecao.data.length > 0) {
+  //           List<SecaoModel> secoes = controller.allSecao.data;
+  //           SecaoModel secao = secoes[1];
+  //           controller.slvWidget
+  //               .add(widgetCore.SlvHeaderWidget(title: secao.nome));
+  //           return widgetCore.SlvAdapterWidget(
+  //               adapter: Container(
+  //             height: 500,
+  //             child: CustomScrollView(
+  //               scrollDirection: Axis.vertical,
+  //               slivers: <Widget>[
+  //                 widgetCore.SlvHeaderWidget(title: secao.nome),
+  //                 widgetCore.SlvAdapterWidget(
+  //                     adapter: Container(
+  //                   height: 300,
+  //                   child: CustomScrollView(
+  //                     scrollDirection: Axis.horizontal,
+  //                     slivers: <Widget>[
+  //                       widgetCore.SlvGridPromoModelWidget(
+  //                         listModel: secao.anuncios,
+  //                       ),
+  //                     ],
+  //                   ),
+  //                 )),
+  //               ],
+  //             ),
+  //           ));
+  //         } else {
+  //           return widgetCore.SlvProgressWidget();
+  //         }
+  //       } else {
+  //         return widgetCore.SlvProgressWidget();
+  //       }
+  //     }
+  //   });
+  // }
 }

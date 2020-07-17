@@ -26,24 +26,3 @@ class BodyCoreWidget extends StatelessWidget {
     );
   }
 }
-
-// <Widget>[
-//               widgetCore.SlvAppbarWidget(
-//                 editButton: editButton,
-//                 title: title,
-//                 isAdmin: isAdmin,
-//               ),
-//               body ??
-//                   SliverToBoxAdapter(
-//                     child: Container(
-//                       padding: const EdgeInsets.all(8.0),
-//                       height: (MediaQuery.of(context).size.height) - 85,
-//                       child: Card(
-//                         shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.circular(10.0),
-//                         ),
-//                         child: card,
-//                       ),
-//                     ),
-//                   ),
-//             ]

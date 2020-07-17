@@ -100,7 +100,7 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<FirebaseUser> getUser() async {
-    return auth.currentUser();
+    return await auth.currentUser();
   }
 
   @override

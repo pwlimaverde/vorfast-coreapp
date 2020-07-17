@@ -1,11 +1,15 @@
 import 'package:coreapp/app/modules/home/model/secao_model.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
 import '../../shared/utilitario/app_status.dart';
 import 'model/promo_model.dart';
 import 'repositories/interfaces/home_repository_interface.dart';
 import '../../shared/auth/auth_store.dart';
+import '../../shared/widgets/widgets_core.dart' as widgetCore;
 
 part 'home_controller.g.dart';
 
@@ -17,6 +21,7 @@ abstract class _HomeControllerBase with Store {
 
   _HomeControllerBase({this.repo, this.auth}) {
     getAllPromo();
+    print("vindo do controller teste");
     getAllSecao();
   }
 
@@ -55,21 +60,44 @@ abstract class _HomeControllerBase with Store {
   ObservableStream<List<PromoModel>> allPromo;
 
   @action
-  void getAllPromo() {
+  getAllPromo() {
     setStatus(AppStatus.loading);
     allPromo = repo.getAllPromo().asObservable();
     setStatus(AppStatus.success);
   }
 
   @observable
-  List<SecaoModel> allSecao;
+  ObservableStream<List<SecaoModel>> allSecao;
 
   @action
-  Future<void> getAllSecao() async {
+  void getAllSecao() {
+    print("vindo do controller all inicio");
     setStatus(AppStatus.loading);
-    allSecao = await repo.getAllSecao();
+    allSecao = repo.getAllSecao().asObservable();
     setStatus(AppStatus.success);
+    print("vindo do controller all fim");
+    print("vindo do controller dados ${allSecao.value}");
   }
+
+  // @computed
+  // List<Future<SecaoModel>> get allSecaoF =>
+  //     allSecao != null && allSecao.value.length > 0
+  //         ? allSecao.value.map((value) async {
+  //             List<PromoModel> e2 = await repo.getPromo(value.reference);
+  //             value.anuncios = e2;
+  //             return value;
+  //           }).toList()
+  //         : [];
+
+  // List<SecaoModel> getAnuncios() {
+  //   List<SecaoModel> listOk = [];
+  //   for (SecaoModel secao in allSecao.value) {
+  //     secao.anuncios = await repo.getPromo(secao.reference);
+  //     listOk.add(secao);
+  //   }
+  //   print("vindo do controller computed $listOk");
+  //   return listOk;
+  // }
 
   @observable
   bool isEditeMode = false;
@@ -102,4 +130,33 @@ abstract class _HomeControllerBase with Store {
       );
     }
   }
+
+  Observer observerEditButton() {
+    return Observer(builder: (_) {
+      if (isEditeMode) {
+        return IconButton(
+          icon: Icon(FontAwesomeIcons.check),
+          onPressed: () {
+            saveCor();
+            setEdite(!isEditeMode);
+          },
+        );
+      } else {
+        return IconButton(
+          icon: Icon(FontAwesomeIcons.pencilAlt),
+          onPressed: () {
+            setEdite(!isEditeMode);
+          },
+        );
+      }
+    });
+  }
+
+  // @observable
+  // ObservableList<Widget> slvWidget = ObservableList<Widget>();
+
+  // @action
+  // void setWidget(Widget slv) {
+  //   slvWidget.add(slv);
+  // }
 }
