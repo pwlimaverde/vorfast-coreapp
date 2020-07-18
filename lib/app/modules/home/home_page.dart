@@ -1,4 +1,3 @@
-import 'package:coreapp/app/modules/home/model/secao_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -25,10 +24,11 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
         page: 1,
         slv: controller.allSecao.data != null &&
                 controller.allSecao.data.length > 0
-            ? listSlv(controller)
+            ? !controller.isEditeMode
+                ? controller.listSlv
+                : controller.listSlvEdit
             : [
                 widgetCore.SlvAppbarWidget(
-                  editButton: controller.observerEditButton(),
                   title: "VorFast",
                   isAdmin: controller.isAdmin,
                 ),
@@ -36,39 +36,6 @@ class _HomePageState extends ModularState<HomePage, HomeController> {
               ],
       );
     });
-  }
-
-  List<Widget> listSlv(HomeController controller) {
-    List<Widget> slv = List<Widget>();
-    slv.insert(
-        0,
-        widgetCore.SlvAppbarWidget(
-          editButton: controller.observerEditButton(),
-          title: "VorFast",
-          isAdmin: controller.isAdmin,
-        ));
-    for (SecaoModel secao in controller.allSecao.data) {
-      slv.add(widgetCore.SlvHeaderWidget(
-        title: secao.nome,
-        color: Colors.amber,
-      ));
-      slv.add(streamBuilder(secao));
-    }
-    return slv;
-  }
-
-  Widget streamBuilder(SecaoModel secao) {
-    return StreamBuilder<Object>(
-        stream: secao.anuncios,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return widgetCore.SlvGridPromoModelWidget(
-              listModel: snapshot.data,
-            );
-          } else {
-            return widgetCore.SlvProgressWidget();
-          }
-        });
   }
 
   // Observer _body() {

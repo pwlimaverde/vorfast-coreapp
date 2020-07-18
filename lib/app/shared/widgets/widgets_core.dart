@@ -10,3 +10,4 @@ export 'body_core/body_core_widget.dart';
 export 'sliver_core/slv_adapter/slv_adapter_widget.dart';
 export 'sliver_core/slv_card/slv_card_widget.dart';
 export 'sliver_core/slv_header/slv_header_widget.dart';
+export 'editbutton_core/editbutton_core_widget.dart';

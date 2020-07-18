@@ -15,6 +15,20 @@ mixin _$HomeController on _HomeControllerBase, Store {
   bool get isAdmin => (_$isAdminComputed ??= Computed<bool>(() => super.isAdmin,
           name: '_HomeControllerBase.isAdmin'))
       .value;
+  Computed<List<Widget>> _$listSlvComputed;
+
+  @override
+  List<Widget> get listSlv =>
+      (_$listSlvComputed ??= Computed<List<Widget>>(() => super.listSlv,
+              name: '_HomeControllerBase.listSlv'))
+          .value;
+  Computed<List<Widget>> _$listSlvEditComputed;
+
+  @override
+  List<Widget> get listSlvEdit =>
+      (_$listSlvEditComputed ??= Computed<List<Widget>>(() => super.listSlvEdit,
+              name: '_HomeControllerBase.listSlvEdit'))
+          .value;
 
   final _$primeEditValidoAtom =
       Atom(name: '_HomeControllerBase.primeEditValido');
@@ -60,21 +74,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
   set status(AppStatus value) {
     _$statusAtom.reportWrite(value, super.status, () {
       super.status = value;
-    });
-  }
-
-  final _$allPromoAtom = Atom(name: '_HomeControllerBase.allPromo');
-
-  @override
-  ObservableStream<List<PromoModel>> get allPromo {
-    _$allPromoAtom.reportRead();
-    return super.allPromo;
-  }
-
-  @override
-  set allPromo(ObservableStream<List<PromoModel>> value) {
-    _$allPromoAtom.reportWrite(value, super.allPromo, () {
-      super.allPromo = value;
     });
   }
 
@@ -145,17 +144,6 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
-  dynamic getAllPromo() {
-    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.getAllPromo');
-    try {
-      return super.getAllPromo();
-    } finally {
-      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
-    }
-  }
-
-  @override
   void getAllSecao() {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.getAllSecao');
@@ -183,10 +171,11 @@ mixin _$HomeController on _HomeControllerBase, Store {
 primeEditValido: ${primeEditValido},
 accentEditValido: ${accentEditValido},
 status: ${status},
-allPromo: ${allPromo},
 allSecao: ${allSecao},
 isEditeMode: ${isEditeMode},
-isAdmin: ${isAdmin}
+isAdmin: ${isAdmin},
+listSlv: ${listSlv},
+listSlvEdit: ${listSlvEdit}
     ''';
   }
 }

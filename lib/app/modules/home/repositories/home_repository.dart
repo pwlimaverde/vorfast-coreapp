@@ -18,54 +18,17 @@ class HomeRepository implements IHomeRepository {
         .snapshots()
         .map((query) {
       return query.documents.map((doc) {
-        getPromo(doc.reference);
-        return SecaoModel.fromDocument(doc, getPromo(doc.reference));
+        return SecaoModel.fromDocument(doc, _getPromo(doc.reference));
       }).toList();
     });
-    // print("vindo da repo - $listT");
-    // List<SecaoModel> listOk = [];
-    // for (SecaoModel secao in listT) {
-    //   secao.anuncios = await _getAnuncios(secao.reference);
-    //   listOk.add(secao);
-    // }
   }
 
-  Stream<List<PromoModel>> getPromo(DocumentReference doc) {
+  Stream<List<PromoModel>> _getPromo(DocumentReference doc) {
     return doc.collection("anuncios").snapshots().map((query) {
       return query.documents.map((doc) {
         return PromoModel.fromDocument(doc);
       }).toList();
     });
-  }
-
-  @override
-  Future<List<PromoModel>> getAnuncios(SecaoModel secao) {
-    return secao.reference
-        .collection("anuncios")
-        .orderBy("prioridade")
-        .getDocuments()
-        .then((query) {
-      return query.documents.map((doc) {
-        return PromoModel.fromDocument(doc);
-      }).toList();
-    });
-  }
-
-  @override
-  Stream<List<PromoModel>> getAllPromo() {
-    try {
-      return firestore
-          .collection("promocoes")
-          .orderBy("prioridade")
-          .snapshots()
-          .map((query) {
-        return query.documents.map((doc) {
-          return PromoModel.fromDocument(doc);
-        }).toList();
-      });
-    } catch (e) {
-      return null;
-    }
   }
 
   @override

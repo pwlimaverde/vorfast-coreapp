@@ -17,9 +17,9 @@ class SlvAppbarWidget extends StatelessWidget {
       actions: <Widget>[
         isAdmin ?? isAdmin == true ? editButton : Container(),
       ],
-      pinned: true,
-      // floating: true,
-      // snap: true,
+      pinned: false,
+      floating: true,
+      snap: true,
       backgroundColor: Theme.of(context).primaryColor,
       elevation: 0.0,
       flexibleSpace: FlexibleSpaceBar(

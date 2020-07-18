@@ -1,15 +1,18 @@
+import 'package:coreapp/app/modules/home/model/secao_model.dart';
 import 'package:flutter/material.dart';
 import 'dart:math' as math;
 
+import 'package:transparent_image/transparent_image.dart';
+
 class SlvHeaderWidget extends StatelessWidget {
-  final String title;
+  final SecaoModel secao;
   final Color color;
 
-  const SlvHeaderWidget({Key key, this.title, this.color}) : super(key: key);
+  const SlvHeaderWidget({Key key, this.secao, this.color}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return makeHeader(title: title, color: color);
+    return makeHeader(title: secao.nome, color: color);
   }
 
   SliverPersistentHeader makeHeader({String title, Color color}) {
@@ -19,7 +22,17 @@ class SlvHeaderWidget extends StatelessWidget {
         minHeight: 50.0,
         maxHeight: 250.0,
         child: Container(
-            color: color ?? Colors.white, child: Center(child: Text(title))),
+            color: color ?? Colors.white,
+            child: Center(
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(15.0),
+                child: FadeInImage.memoryNetwork(
+                  placeholder: kTransparentImage,
+                  image: secao.img,
+                  fit: BoxFit.cover,
+                ),
+              ),
+            )),
       ),
     );
   }
