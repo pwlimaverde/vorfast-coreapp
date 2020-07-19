@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 //imports internos
 import 'home_controller.dart';
@@ -10,9 +11,14 @@ import '../../shared/auth/auth_store.dart';
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind<IHomeRepository>((i) => HomeRepository(Firestore.instance)),
+        Bind<IHomeRepository>((i) => HomeRepository(
+              firestore: Firestore.instance,
+              storageReference: FirebaseStorage().ref(),
+            )),
         Bind((i) => HomeController(
-            repo: i.get<IHomeRepository>(), auth: i.get<AuthStore>())),
+              repo: i.get<IHomeRepository>(),
+              auth: i.get<AuthStore>(),
+            )),
       ];
 
   @override
