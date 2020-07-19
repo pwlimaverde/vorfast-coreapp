@@ -43,6 +43,20 @@ mixin _$HomeController on _HomeControllerBase, Store {
       (_$corAccentComputed ??= Computed<Color>(() => super.corAccent,
               name: '_HomeControllerBase.corAccent'))
           .value;
+  Computed<bool> _$isHeaderComputed;
+
+  @override
+  bool get isHeader =>
+      (_$isHeaderComputed ??= Computed<bool>(() => super.isHeader,
+              name: '_HomeControllerBase.isHeader'))
+          .value;
+  Computed<Color> _$corHeaderComputed;
+
+  @override
+  Color get corHeader =>
+      (_$corHeaderComputed ??= Computed<Color>(() => super.corHeader,
+              name: '_HomeControllerBase.corHeader'))
+          .value;
   Computed<List<Widget>> _$listSlvComputed;
 
   @override
@@ -154,6 +168,70 @@ mixin _$HomeController on _HomeControllerBase, Store {
     });
   }
 
+  final _$headerREditValidoAtom =
+      Atom(name: '_HomeControllerBase.headerREditValido');
+
+  @override
+  int get headerREditValido {
+    _$headerREditValidoAtom.reportRead();
+    return super.headerREditValido;
+  }
+
+  @override
+  set headerREditValido(int value) {
+    _$headerREditValidoAtom.reportWrite(value, super.headerREditValido, () {
+      super.headerREditValido = value;
+    });
+  }
+
+  final _$headerGEditValidoAtom =
+      Atom(name: '_HomeControllerBase.headerGEditValido');
+
+  @override
+  int get headerGEditValido {
+    _$headerGEditValidoAtom.reportRead();
+    return super.headerGEditValido;
+  }
+
+  @override
+  set headerGEditValido(int value) {
+    _$headerGEditValidoAtom.reportWrite(value, super.headerGEditValido, () {
+      super.headerGEditValido = value;
+    });
+  }
+
+  final _$headerBEditValidoAtom =
+      Atom(name: '_HomeControllerBase.headerBEditValido');
+
+  @override
+  int get headerBEditValido {
+    _$headerBEditValidoAtom.reportRead();
+    return super.headerBEditValido;
+  }
+
+  @override
+  set headerBEditValido(int value) {
+    _$headerBEditValidoAtom.reportWrite(value, super.headerBEditValido, () {
+      super.headerBEditValido = value;
+    });
+  }
+
+  final _$headerOEditValidoAtom =
+      Atom(name: '_HomeControllerBase.headerOEditValido');
+
+  @override
+  int get headerOEditValido {
+    _$headerOEditValidoAtom.reportRead();
+    return super.headerOEditValido;
+  }
+
+  @override
+  set headerOEditValido(int value) {
+    _$headerOEditValidoAtom.reportWrite(value, super.headerOEditValido, () {
+      super.headerOEditValido = value;
+    });
+  }
+
   final _$statusAtom = Atom(name: '_HomeControllerBase.status');
 
   @override
@@ -181,6 +259,21 @@ mixin _$HomeController on _HomeControllerBase, Store {
   set allSecao(ObservableStream<List<SecaoModel>> value) {
     _$allSecaoAtom.reportWrite(value, super.allSecao, () {
       super.allSecao = value;
+    });
+  }
+
+  final _$themeAtom = Atom(name: '_HomeControllerBase.theme');
+
+  @override
+  ObservableFuture<ThemeModel> get theme {
+    _$themeAtom.reportRead();
+    return super.theme;
+  }
+
+  @override
+  set theme(ObservableFuture<ThemeModel> value) {
+    _$themeAtom.reportWrite(value, super.theme, () {
+      super.theme = value;
     });
   }
 
@@ -269,6 +362,50 @@ mixin _$HomeController on _HomeControllerBase, Store {
   }
 
   @override
+  void setHeaderR(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setHeaderR');
+    try {
+      return super.setHeaderR(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHeaderG(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setHeaderG');
+    try {
+      return super.setHeaderG(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHeaderB(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setHeaderB');
+    try {
+      return super.setHeaderB(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setHeaderO(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setHeaderO');
+    try {
+      return super.setHeaderO(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   dynamic setStatus(AppStatus valor) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
         name: '_HomeControllerBase.setStatus');
@@ -285,6 +422,17 @@ mixin _$HomeController on _HomeControllerBase, Store {
         name: '_HomeControllerBase.getAllSecao');
     try {
       return super.getAllSecao();
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void getThemeConfig() {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.getThemeConfig');
+    try {
+      return super.getThemeConfig();
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -310,14 +458,21 @@ primeBEditValido: ${primeBEditValido},
 accentREditValido: ${accentREditValido},
 accentGEditValido: ${accentGEditValido},
 accentBEditValido: ${accentBEditValido},
+headerREditValido: ${headerREditValido},
+headerGEditValido: ${headerGEditValido},
+headerBEditValido: ${headerBEditValido},
+headerOEditValido: ${headerOEditValido},
 status: ${status},
 allSecao: ${allSecao},
+theme: ${theme},
 isEditeMode: ${isEditeMode},
 isAdmin: ${isAdmin},
 isPrimary: ${isPrimary},
 corPrymary: ${corPrymary},
 isAccent: ${isAccent},
 corAccent: ${corAccent},
+isHeader: ${isHeader},
+corHeader: ${corHeader},
 listSlv: ${listSlv},
 listSlvEdit: ${listSlvEdit}
     ''';

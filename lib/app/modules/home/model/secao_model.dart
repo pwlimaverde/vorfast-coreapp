@@ -6,10 +6,10 @@ class SecaoModel {
   String nome;
   String img;
   bool scrow;
-  int corr;
-  int corg;
-  int corb;
-  double coro;
+  int corR;
+  int corG;
+  int corB;
+  int corO;
   Stream<List<PromoModel>> anuncios;
 
   SecaoModel({
@@ -17,10 +17,10 @@ class SecaoModel {
     this.nome,
     this.img,
     this.scrow,
-    this.corr,
-    this.corg,
-    this.corb,
-    this.coro,
+    this.corR,
+    this.corG,
+    this.corB,
+    this.corO,
     this.anuncios,
   });
 
@@ -31,10 +31,10 @@ class SecaoModel {
       nome: doc['nome'],
       img: doc['img'],
       scrow: doc['scrow'],
-      corr: doc['corr'],
-      corg: doc['corg'],
-      corb: doc['corb'],
-      coro: doc['coro'] + 0.0,
+      corR: doc['corR'],
+      corG: doc['corG'],
+      corB: doc['corB'],
+      corO: doc['corO'],
       anuncios: anuncios,
     );
   }

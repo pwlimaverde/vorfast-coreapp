@@ -7,8 +7,10 @@ import 'package:transparent_image/transparent_image.dart';
 class SlvHeaderWidget extends StatelessWidget {
   final SecaoModel secao;
   final Color color;
+  final Function onTap;
 
-  const SlvHeaderWidget({Key key, this.secao, this.color}) : super(key: key);
+  const SlvHeaderWidget({Key key, this.secao, this.color, this.onTap})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +23,21 @@ class SlvHeaderWidget extends StatelessWidget {
       delegate: _SliverAppBarDelegate(
         minHeight: 50.0,
         maxHeight: 250.0,
-        child: Container(
-            color: color ?? Colors.white,
-            child: Center(
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(15.0),
-                child: FadeInImage.memoryNetwork(
-                  placeholder: kTransparentImage,
-                  image: secao.img,
-                  fit: BoxFit.cover,
+        child: GestureDetector(
+          child: Container(
+              color: color ?? Colors.white,
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15.0),
+                  child: FadeInImage.memoryNetwork(
+                    placeholder: kTransparentImage,
+                    image: secao.img,
+                    fit: BoxFit.cover,
+                  ),
                 ),
-              ),
-            )),
+              )),
+          onTap: onTap ?? null,
+        ),
       ),
     );
   }
