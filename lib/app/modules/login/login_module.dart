@@ -2,13 +2,13 @@ import 'package:flutter_modular/flutter_modular.dart';
 //Importes Internos
 import 'login_page.dart';
 import 'login_controller.dart';
-import '../../shared/auth/auth_controller.dart';
+import '../../shared/auth/auth_store.dart';
 import 'pages/novo_user/novo_user_module.dart';
 
 class LoginModule extends ChildModule {
   @override
   List<Bind> get binds => [
-        Bind((i) => LoginController(authController: i.get<AuthController>())),
+        Bind((i) => LoginController(authController: i.get<AuthStore>())),
       ];
 
   @override

@@ -39,28 +39,43 @@ abstract class _ThemeControllerBase with Store {
   @computed
   ThemeData get themeApp {
     if (fireTheme.value != null) {
-      print("tema set ${0xffD8BFD8}");
-//      print("tema fire ${fireTheme.value}");
       LocalStorage.setValue<String>(
           "localTeheme", json.encode(fireTheme.value.toJson()));
       return ThemeData(
-        primaryColor: Color(fireTheme.value.primaryColor),
-        accentColor: Color(fireTheme.value.accentColor),
-        buttonColor: Color(fireTheme.value.buttonColor),
+        primaryColor: Color.fromRGBO(
+          fireTheme.value.primaryR,
+          fireTheme.value.primaryG,
+          fireTheme.value.primaryB,
+          1.0,
+        ),
+        accentColor: Color.fromRGBO(
+          fireTheme.value.accentR,
+          fireTheme.value.accentG,
+          fireTheme.value.accentB,
+          1.0,
+        ),
       );
     } else if (localTheme != null) {
 //      print("tema local");
       return ThemeData(
-        primaryColor: Color(localTheme.primaryColor),
-        accentColor: Color(localTheme.accentColor),
-        buttonColor: Color(localTheme.buttonColor),
+        primaryColor: Color.fromRGBO(
+          localTheme.primaryR,
+          localTheme.primaryG,
+          localTheme.primaryB,
+          1.0,
+        ),
+        accentColor: Color.fromRGBO(
+          localTheme.accentR,
+          localTheme.accentG,
+          localTheme.accentB,
+          1.0,
+        ),
       );
     } else {
 //      print("tema deful");
       return ThemeData(
         primaryColor: Color(0xffffffff),
         accentColor: Color(0xffffffff),
-        buttonColor: Color(0xffffffff),
       );
     }
   }

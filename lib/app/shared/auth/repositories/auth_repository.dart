@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 //Importes Internos
 import 'interfaces/auth_repository_interface.dart';
-import '../model/user_model.dart';
+import '../../model/user_model.dart';
 
 class AuthRepository implements IAuthRepository {
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -48,7 +48,7 @@ class AuthRepository implements IAuthRepository {
         password: pass,
       )
           .then((valor) async {
-        await _saveUserData(valor.user, user);
+        await saveUserData(userFire: valor.user, userData: user);
         return valor.user;
       });
     } catch (e) {
@@ -56,7 +56,8 @@ class AuthRepository implements IAuthRepository {
     }
   }
 
-  Future<void> _saveUserData(FirebaseUser userFire, UserModel userData) async {
+  @override
+  Future<void> saveUserData({FirebaseUser userFire, UserModel userData}) async {
     await fire.collection("user").document(userFire.uid).setData({
       'nome': userData.nome,
       'id': userFire.uid,
@@ -72,12 +73,6 @@ class AuthRepository implements IAuthRepository {
   }
 
   @override
-  Future getEmailLogin() {
-    // TODO: implement getEmailLogin
-    throw UnimplementedError();
-  }
-
-  @override
   Future<FirebaseUser> getGoogleLogin() async {
     final GoogleSignInAccount googleUser = await _googleSignIn.signIn();
     final GoogleSignInAuthentication googleAuth =
@@ -90,13 +85,31 @@ class AuthRepository implements IAuthRepository {
 
     final FirebaseUser user =
         (await auth.signInWithCredential(credential)).user;
-    print("signed in " + user.displayName);
+
+    DocumentReference docRef = fire.collection("user").document(user.uid);
+    DocumentSnapshot doc = await docRef.get();
+    final exists = doc.exists;
+    if (!exists) {
+      UserModel userData = UserModel();
+      userData.nome = user.displayName;
+      userData.email = user.email;
+      await saveUserData(userFire: user, userData: userData);
+    }
     return user;
   }
 
   @override
   Future<FirebaseUser> getUser() async {
-    return auth.currentUser();
+    return await auth.currentUser();
+  }
+
+  @override
+  Future<bool> recoveryPass({String email}) async {
+    return await auth.sendPasswordResetEmail(email: email).then((_) {
+      return true;
+    }).catchError((e) {
+      return false;
+    });
   }
 
   //dispose will be called automatically

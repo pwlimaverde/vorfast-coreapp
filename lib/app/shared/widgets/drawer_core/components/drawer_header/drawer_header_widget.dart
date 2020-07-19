@@ -3,10 +3,10 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //Importes Internos
-import '../../../../auth/auth_controller.dart';
+import '../../../../auth/auth_store.dart';
 
 class DrawerHeaderWidget extends StatelessWidget {
-  final AuthController controllerAuth = Modular.get<AuthController>();
+  final AuthStore controllerAuth = Modular.get<AuthStore>();
   final int page;
 
   DrawerHeaderWidget({this.page});

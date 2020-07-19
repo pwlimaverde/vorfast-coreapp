@@ -23,9 +23,17 @@ class _NovoUserPageState
   @override
   Widget build(BuildContext context) {
     return widgetCore.BodyCoreWidget(
-      title: "Criar Usuario",
       page: 0,
-      card: buildForm(),
+      slv: <Widget>[
+        widgetCore.SlvAppbarWidget(
+          // editButton: observerEditButton(),
+          title: "Criar Usuario",
+          // isAdmin: controller.isAdmin,
+        ),
+        widgetCore.SlvCardWidget(
+          body: buildForm(),
+        ),
+      ],
     );
   }
 
