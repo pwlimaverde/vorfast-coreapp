@@ -15,6 +15,34 @@ mixin _$HomeController on _HomeControllerBase, Store {
   bool get isAdmin => (_$isAdminComputed ??= Computed<bool>(() => super.isAdmin,
           name: '_HomeControllerBase.isAdmin'))
       .value;
+  Computed<bool> _$isPrimaryComputed;
+
+  @override
+  bool get isPrimary =>
+      (_$isPrimaryComputed ??= Computed<bool>(() => super.isPrimary,
+              name: '_HomeControllerBase.isPrimary'))
+          .value;
+  Computed<Color> _$corPrymaryComputed;
+
+  @override
+  Color get corPrymary =>
+      (_$corPrymaryComputed ??= Computed<Color>(() => super.corPrymary,
+              name: '_HomeControllerBase.corPrymary'))
+          .value;
+  Computed<bool> _$isAccentComputed;
+
+  @override
+  bool get isAccent =>
+      (_$isAccentComputed ??= Computed<bool>(() => super.isAccent,
+              name: '_HomeControllerBase.isAccent'))
+          .value;
+  Computed<Color> _$corAccentComputed;
+
+  @override
+  Color get corAccent =>
+      (_$corAccentComputed ??= Computed<Color>(() => super.corAccent,
+              name: '_HomeControllerBase.corAccent'))
+          .value;
   Computed<List<Widget>> _$listSlvComputed;
 
   @override
@@ -30,35 +58,99 @@ mixin _$HomeController on _HomeControllerBase, Store {
               name: '_HomeControllerBase.listSlvEdit'))
           .value;
 
-  final _$primeEditValidoAtom =
-      Atom(name: '_HomeControllerBase.primeEditValido');
+  final _$primeREditValidoAtom =
+      Atom(name: '_HomeControllerBase.primeREditValido');
 
   @override
-  String get primeEditValido {
-    _$primeEditValidoAtom.reportRead();
-    return super.primeEditValido;
+  int get primeREditValido {
+    _$primeREditValidoAtom.reportRead();
+    return super.primeREditValido;
   }
 
   @override
-  set primeEditValido(String value) {
-    _$primeEditValidoAtom.reportWrite(value, super.primeEditValido, () {
-      super.primeEditValido = value;
+  set primeREditValido(int value) {
+    _$primeREditValidoAtom.reportWrite(value, super.primeREditValido, () {
+      super.primeREditValido = value;
     });
   }
 
-  final _$accentEditValidoAtom =
-      Atom(name: '_HomeControllerBase.accentEditValido');
+  final _$primeGEditValidoAtom =
+      Atom(name: '_HomeControllerBase.primeGEditValido');
 
   @override
-  String get accentEditValido {
-    _$accentEditValidoAtom.reportRead();
-    return super.accentEditValido;
+  int get primeGEditValido {
+    _$primeGEditValidoAtom.reportRead();
+    return super.primeGEditValido;
   }
 
   @override
-  set accentEditValido(String value) {
-    _$accentEditValidoAtom.reportWrite(value, super.accentEditValido, () {
-      super.accentEditValido = value;
+  set primeGEditValido(int value) {
+    _$primeGEditValidoAtom.reportWrite(value, super.primeGEditValido, () {
+      super.primeGEditValido = value;
+    });
+  }
+
+  final _$primeBEditValidoAtom =
+      Atom(name: '_HomeControllerBase.primeBEditValido');
+
+  @override
+  int get primeBEditValido {
+    _$primeBEditValidoAtom.reportRead();
+    return super.primeBEditValido;
+  }
+
+  @override
+  set primeBEditValido(int value) {
+    _$primeBEditValidoAtom.reportWrite(value, super.primeBEditValido, () {
+      super.primeBEditValido = value;
+    });
+  }
+
+  final _$accentREditValidoAtom =
+      Atom(name: '_HomeControllerBase.accentREditValido');
+
+  @override
+  int get accentREditValido {
+    _$accentREditValidoAtom.reportRead();
+    return super.accentREditValido;
+  }
+
+  @override
+  set accentREditValido(int value) {
+    _$accentREditValidoAtom.reportWrite(value, super.accentREditValido, () {
+      super.accentREditValido = value;
+    });
+  }
+
+  final _$accentGEditValidoAtom =
+      Atom(name: '_HomeControllerBase.accentGEditValido');
+
+  @override
+  int get accentGEditValido {
+    _$accentGEditValidoAtom.reportRead();
+    return super.accentGEditValido;
+  }
+
+  @override
+  set accentGEditValido(int value) {
+    _$accentGEditValidoAtom.reportWrite(value, super.accentGEditValido, () {
+      super.accentGEditValido = value;
+    });
+  }
+
+  final _$accentBEditValidoAtom =
+      Atom(name: '_HomeControllerBase.accentBEditValido');
+
+  @override
+  int get accentBEditValido {
+    _$accentBEditValidoAtom.reportRead();
+    return super.accentBEditValido;
+  }
+
+  @override
+  set accentBEditValido(int value) {
+    _$accentBEditValidoAtom.reportWrite(value, super.accentBEditValido, () {
+      super.accentBEditValido = value;
     });
   }
 
@@ -111,22 +203,66 @@ mixin _$HomeController on _HomeControllerBase, Store {
       ActionController(name: '_HomeControllerBase');
 
   @override
-  void setPrime(String valor) {
+  void setPrimeR(int valor) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.setPrime');
+        name: '_HomeControllerBase.setPrimeR');
     try {
-      return super.setPrime(valor);
+      return super.setPrimeR(valor);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
   }
 
   @override
-  void setAccent(String valor) {
+  void setPrimeG(int valor) {
     final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
-        name: '_HomeControllerBase.setAccent');
+        name: '_HomeControllerBase.setPrimeG');
     try {
-      return super.setAccent(valor);
+      return super.setPrimeG(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setPrimeB(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setPrimeB');
+    try {
+      return super.setPrimeB(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setAccentR(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setAccentR');
+    try {
+      return super.setAccentR(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setAccentG(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setAccentG');
+    try {
+      return super.setAccentG(valor);
+    } finally {
+      _$_HomeControllerBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setAccentB(int valor) {
+    final _$actionInfo = _$_HomeControllerBaseActionController.startAction(
+        name: '_HomeControllerBase.setAccentB');
+    try {
+      return super.setAccentB(valor);
     } finally {
       _$_HomeControllerBaseActionController.endAction(_$actionInfo);
     }
@@ -168,12 +304,20 @@ mixin _$HomeController on _HomeControllerBase, Store {
   @override
   String toString() {
     return '''
-primeEditValido: ${primeEditValido},
-accentEditValido: ${accentEditValido},
+primeREditValido: ${primeREditValido},
+primeGEditValido: ${primeGEditValido},
+primeBEditValido: ${primeBEditValido},
+accentREditValido: ${accentREditValido},
+accentGEditValido: ${accentGEditValido},
+accentBEditValido: ${accentBEditValido},
 status: ${status},
 allSecao: ${allSecao},
 isEditeMode: ${isEditeMode},
 isAdmin: ${isAdmin},
+isPrimary: ${isPrimary},
+corPrymary: ${corPrymary},
+isAccent: ${isAccent},
+corAccent: ${corAccent},
 listSlv: ${listSlv},
 listSlvEdit: ${listSlvEdit}
     ''';

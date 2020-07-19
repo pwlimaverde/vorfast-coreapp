@@ -11,17 +11,15 @@ class AppWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Observer(
-      builder: (context) {
-        return GetMaterialApp(
-          debugShowCheckedModeBanner: false,
-          navigatorKey: Modular.navigatorKey,
-          title: 'VorFast CoreApp',
-          theme: controllerThem.themeApp,
-          initialRoute: '/',
-          onGenerateRoute: Modular.generateRoute,
-        );
-      }
-    );
+    return Observer(builder: (context) {
+      return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
+        navigatorKey: Modular.navigatorKey,
+        title: 'VorFast CoreApp',
+        theme: controllerThem.themeApp,
+        initialRoute: '/',
+        onGenerateRoute: Modular.generateRoute,
+      );
+    });
   }
 }

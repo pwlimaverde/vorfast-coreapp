@@ -32,10 +32,20 @@ class HomeRepository implements IHomeRepository {
   }
 
   @override
-  Future<void> saveCor({String key, int cor, FirebaseUser user}) async {
+  Future<void> saveCor({
+    String keyR,
+    int corR,
+    String keyG,
+    int corG,
+    String keyB,
+    int corB,
+    FirebaseUser user,
+  }) async {
     try {
       await firestore.collection("settingstheme").document("theme").updateData({
-        '$key': cor,
+        '$keyR': corR,
+        '$keyG': corG,
+        '$keyB': corB,
         'user': user.uid,
       });
     } catch (e) {}
