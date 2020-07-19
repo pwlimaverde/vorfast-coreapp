@@ -1,15 +1,20 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coreapp/app/modules/home/model/secao_model.dart';
 import 'package:coreapp/app/shared/theme/model/theme_model.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'package:image_picker/image_picker.dart';
 //Importes Internos
 import 'interfaces/home_repository_interface.dart';
 import '../model/promo_model.dart';
 
 class HomeRepository implements IHomeRepository {
   final Firestore firestore;
+  final StorageReference storageReference;
 
-  HomeRepository(this.firestore);
+  HomeRepository({this.firestore, this.storageReference});
 
   @override
   Stream<List<SecaoModel>> getAllSecao() {
@@ -85,6 +90,24 @@ class HomeRepository implements IHomeRepository {
         .then((event) {
       return ThemeModel.fromDocument(event);
     });
+  }
+
+  @override
+  Future<void> saveImgGalery({SecaoModel secao}) async {
+    final _picker = ImagePicker();
+    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+    final File img = File(pickedFile.path);
+
+    var uploadTask =
+        storageReference.child("header").child(secao.nome).putFile(img);
+    var storageSnapshot = await uploadTask.onComplete;
+    var url = await storageSnapshot.ref.getDownloadURL();
+    await secao.reference.updateData({"img": "$url"});
+  }
+
+  @override
+  Future<void> saveImgLink({SecaoModel secao, String link}) async {
+    await secao.reference.updateData({"img": "$link"});
   }
 
   //dispose will be called automatically

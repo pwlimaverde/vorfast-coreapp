@@ -21,7 +21,7 @@ class SlvHeaderWidget extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: false,
       delegate: _SliverAppBarDelegate(
-        minHeight: 50.0,
+        minHeight: 180.0,
         maxHeight: 250.0,
         child: GestureDetector(
           child: Container(

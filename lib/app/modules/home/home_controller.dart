@@ -23,7 +23,10 @@ abstract class _HomeControllerBase with Store {
   final IHomeRepository repo;
   final AuthStore auth;
 
-  _HomeControllerBase({this.repo, this.auth}) {
+  _HomeControllerBase({
+    this.repo,
+    this.auth,
+  }) {
     getAllSecao();
     getThemeConfig();
   }
@@ -308,7 +311,7 @@ abstract class _HomeControllerBase with Store {
           setHeaderO(secao.corO);
           Get.bottomSheet(Observer(builder: (_) {
             return Container(
-              height: 200,
+              height: 250,
               color: Colors.white,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.end,
@@ -339,6 +342,46 @@ abstract class _HomeControllerBase with Store {
                               secao.corO, secao.corR, secao.corG, secao.corB),
                       title: isHeader ? "Cor nova" : "Cor atual",
                     ),
+                  ),
+                  widgetCore.FlatbuttonCoreWidget(
+                    padding: 4.0,
+                    fontSize: 13,
+                    title: "Upload de Imagem da Galeria",
+                    onPressed: () {
+                      repo.saveImgGalery(secao: secao);
+                    },
+                  ),
+                  widgetCore.FlatbuttonCoreWidget(
+                    padding: 4.0,
+                    fontSize: 13,
+                    title: "Upload de Imagem via Link",
+                    onPressed: () {
+                      String link;
+                      Get.defaultDialog(
+                        onConfirm: () {
+                          repo.saveImgLink(secao: secao, link: link);
+                          Get.back();
+                        },
+                        onCancel: () {},
+                        content: Container(
+                          height: 100,
+                          child: Column(
+                            children: <Widget>[
+                              Expanded(
+                                child: widgetCore.FieldCoreWidget(
+                                  label: "Link da imagem",
+                                  hint: "Insira o Link da Imagem.",
+                                  onChanged: (valor) {
+                                    link = valor;
+                                  },
+                                ),
+                              ),
+                              Text("Upload de Imagem via Link"),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

@@ -28,4 +28,6 @@ abstract class IHomeRepository implements Disposable {
     int corO,
     FirebaseUser user,
   });
+  Future<void> saveImgGalery({SecaoModel secao});
+  Future<void> saveImgLink({SecaoModel secao, String link});
 }
