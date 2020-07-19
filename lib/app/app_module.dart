@@ -10,7 +10,7 @@ import 'modules/categorias/categorias_module.dart';
 import 'modules/home/home_module.dart';
 import 'modules/login/login_module.dart';
 import 'modules/produtos/produtos_module.dart';
-import 'shared/auth/auth_controller.dart';
+import 'shared/auth/auth_store.dart';
 import 'shared/auth/repositories/auth_repository.dart';
 import 'shared/auth/repositories/interfaces/auth_repository_interface.dart';
 import 'shared/local_storage/local_storage.dart';
@@ -31,7 +31,7 @@ class AppModule extends MainModule {
         Bind((i) => LocalStorage()),
         Bind<IAuthRepository>((i) => AuthRepository(
             auth: FirebaseAuth.instance, fire: Firestore.instance)),
-        Bind((i) => AuthController(i.get())),
+        Bind((i) => AuthStore(i.get())),
       ];
 
   @override
@@ -41,10 +41,14 @@ class AppModule extends MainModule {
           child: (_, args) => SplashPage(),
           transition: TransitionType.noTransition,
         ),
-        Router(Modular.initialRoute, module: HomeModule()),
-        Router("/categorias", module: CategoriasModule()),
-        Router("/produtos", module: ProdutosModule()),
-        Router("/login", module: LoginModule()),
+        Router(Modular.initialRoute,
+            module: HomeModule(), transition: TransitionType.fadeIn),
+        Router("/categorias",
+            module: CategoriasModule(), transition: TransitionType.fadeIn),
+        Router("/produtos",
+            module: ProdutosModule(), transition: TransitionType.fadeIn),
+        Router("/login",
+            module: LoginModule(), transition: TransitionType.fadeIn),
       ];
 
   @override

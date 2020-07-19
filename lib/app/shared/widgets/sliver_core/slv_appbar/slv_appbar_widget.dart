@@ -2,14 +2,25 @@ import 'package:flutter/material.dart';
 
 class SlvAppbarWidget extends StatelessWidget {
   final String title;
+  final bool isAdmin;
+  final Widget editButton;
 
-  const SlvAppbarWidget({Key key, this.title}) : super(key: key);
+  const SlvAppbarWidget({
+    Key key,
+    this.title,
+    this.isAdmin,
+    this.editButton,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
+      actions: <Widget>[
+        isAdmin ?? isAdmin == true ? editButton : Container(),
+      ],
+      pinned: false,
       floating: true,
       snap: true,
-      backgroundColor: Colors.transparent,
+      backgroundColor: Theme.of(context).primaryColor,
       elevation: 0.0,
       flexibleSpace: FlexibleSpaceBar(
         title: Text(title),

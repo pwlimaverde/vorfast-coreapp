@@ -25,8 +25,16 @@ class _CategoriasPageState
   Widget build(BuildContext context) {
     return widgetCore.BodyCoreWidget(
       page: 2,
-      title: "Categorias",
-      card: _card(),
+      slv: <Widget>[
+        widgetCore.SlvAppbarWidget(
+          // editButton: observerEditButton(),
+          title: "Categorias",
+          // isAdmin: controller.isAdmin,
+        ),
+        widgetCore.SlvCardWidget(
+          body: _card(),
+        ),
+      ],
       // body: _body(),
     );
   }

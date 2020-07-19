@@ -8,7 +8,13 @@ class PromoModel {
   int x;
   int y;
 
-  PromoModel({this.reference, this.image, this.prioridade, this.produto, this.x, this.y});
+  PromoModel(
+      {this.reference,
+      this.image,
+      this.prioridade,
+      this.produto,
+      this.x,
+      this.y});
 
   PromoModel.fromJson(Map<String, dynamic> json) {
     image = json['image'];

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 //Importes Internos
-import '../../../../shared/auth/auth_controller.dart';
+import '../../../../shared/auth/auth_store.dart';
 import '../../../../shared/utilitario/app_status.dart';
-import '../../../../shared/auth/model/user_model.dart';
+import '../../../../shared/model/user_model.dart';
 
 part 'novo_user_controller.g.dart';
 
@@ -17,7 +17,7 @@ abstract class _NovoUserControllerBase with Store {
   final repetirSenhaController = TextEditingController();
   final enderecoController = TextEditingController();
 
-  final AuthController authController;
+  final AuthStore authController;
 
   _NovoUserControllerBase({@required this.authController});
 

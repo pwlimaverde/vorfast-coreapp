@@ -3,12 +3,13 @@ import '../widgets_core.dart' as widgetCore;
 
 class BodyCoreWidget extends StatelessWidget {
   final int page;
-  final String title;
-  final Widget body;
-  final Widget card;
+  final List<Widget> slv;
 
-  const BodyCoreWidget({Key key, this.page, this.title, this.body, this.card})
-      : super(key: key);
+  const BodyCoreWidget({
+    Key key,
+    this.page,
+    this.slv,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,22 +19,7 @@ class BodyCoreWidget extends StatelessWidget {
         children: <Widget>[
           widgetCore.GradientebackCoreWidget(),
           CustomScrollView(
-            slivers: <Widget>[
-              widgetCore.SlvAppbarWidget(title: title),
-              body ??
-                  SliverToBoxAdapter(
-                    child: Container(
-                      padding: const EdgeInsets.all(8.0),
-                      height: (MediaQuery.of(context).size.height) - 85,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        child: card,
-                      ),
-                    ),
-                  ),
-            ],
+            slivers: slv,
           ),
         ],
       ),
