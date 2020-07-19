@@ -1,6 +1,3 @@
-import 'package:coreapp/app/modules/home/componentes/preview_edit_cor/preview_edit_cor_widget.dart';
-import 'package:coreapp/app/modules/home/model/secao_model.dart';
-import 'package:coreapp/app/shared/theme/model/theme_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -13,6 +10,9 @@ import 'componentes/card_edit_cor/card_edit_cor_widget.dart';
 import 'componentes/container_edit_cor/container_edit_cor_widget.dart';
 import 'repositories/interfaces/home_repository_interface.dart';
 import '../../shared/auth/auth_store.dart';
+import 'componentes/preview_edit_cor/preview_edit_cor_widget.dart';
+import 'model/secao_model.dart';
+import '../../shared/theme/model/theme_model.dart';
 import '../../shared/widgets/widgets_core.dart' as widgetCore;
 
 part 'home_controller.g.dart';
@@ -225,23 +225,6 @@ abstract class _HomeControllerBase with Store {
           editButton: widgetCore.EditbuttonCoreWidget(
             isEditeMode: isEditeMode,
             onPressedEdit: () {
-              // if (theme.value != null) {
-              //   print("computed tema ${theme.value}");
-              //   primeRController.text = theme.value.primaryR.toString();
-              //   primeGController.text = theme.value.primaryG.toString();
-              //   primeBController.text = theme.value.primaryB.toString();
-              //   setPrimeR(theme.value.primaryR);
-              //   setPrimeG(theme.value.primaryG);
-              //   setPrimeB(theme.value.primaryB);
-
-              //   accentRController.text = theme.value.accentR.toString();
-              //   accentGController.text = theme.value.accentG.toString();
-              //   accentBController.text = theme.value.accentB.toString();
-              //   setAccentR(theme.value.accentR);
-              //   setAccentG(theme.value.accentG);
-              //   setAccentB(theme.value.accentB);
-              //   print("computed tema true");
-              // }
               setEdite(!isEditeMode);
             },
             onPressedcheck: () {
