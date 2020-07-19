@@ -34,6 +34,16 @@ mixin _$LoginController on _LoginControllerBase, Store {
         () => super.signInEmailLogin(onSuccess: onSuccess, onFail: onFail));
   }
 
+  final _$signInGoogleLoginAsyncAction =
+      AsyncAction('_LoginControllerBase.signInGoogleLogin');
+
+  @override
+  Future<void> signInGoogleLogin(
+      {@required VoidCallback onSuccess, @required VoidCallback onFail}) {
+    return _$signInGoogleLoginAsyncAction.run(
+        () => super.signInGoogleLogin(onSuccess: onSuccess, onFail: onFail));
+  }
+
   final _$_LoginControllerBaseActionController =
       ActionController(name: '_LoginControllerBase');
 

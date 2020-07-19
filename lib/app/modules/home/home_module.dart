@@ -5,12 +5,14 @@ import 'home_controller.dart';
 import 'home_page.dart';
 import 'repositories/home_repository.dart';
 import 'repositories/interfaces/home_repository_interface.dart';
+import '../../shared/auth/auth_store.dart';
 
 class HomeModule extends ChildModule {
   @override
   List<Bind> get binds => [
         Bind<IHomeRepository>((i) => HomeRepository(Firestore.instance)),
-        Bind((i) => HomeController(i.get())),
+        Bind((i) => HomeController(
+            repo: i.get<IHomeRepository>(), auth: i.get<AuthStore>())),
       ];
 
   @override

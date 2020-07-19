@@ -23,9 +23,17 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
   @override
   Widget build(BuildContext context) {
     return widgetCore.BodyCoreWidget(
-      title: "Login",
       page: 0,
-      card: buildForm(),
+      slv: <Widget>[
+        widgetCore.SlvAppbarWidget(
+          // editButton: observerEditButton(),
+          title: "Login",
+          // isAdmin: controller.isAdmin,
+        ),
+        widgetCore.SlvCardWidget(
+          body: buildForm(),
+        ),
+      ],
     );
   }
 
@@ -60,7 +68,35 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             alignment: Alignment.centerRight,
             child: widgetCore.FlatbuttonCoreWidget(
               title: "Esqueci minha senha",
-              onPressed: () {},
+              onPressed: () {
+                if (controller.emailController.text.isEmpty) {
+                  Get.snackbar(
+                    'Olá',
+                    'Insira seu e-mail para recuperação!',
+                    icon: Icon(FontAwesomeIcons.meh),
+                    snackPosition: SnackPosition.BOTTOM,
+                  );
+                } else {
+                  controller.recoverPass(
+                    onSuccess: () {
+                      Get.snackbar(
+                        'Olá',
+                        'Confira seu e-mail para recuperar a senha!',
+                        icon: Icon(FontAwesomeIcons.check),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
+                    onFail: () {
+                      Get.snackbar(
+                        'Olá',
+                        'Falha ao tentar recuperar o e-mail!',
+                        icon: Icon(FontAwesomeIcons.check),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
+                  );
+                }
+              },
             ),
           ),
           Align(
@@ -76,7 +112,8 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
             height: 16.0,
           ),
           Observer(builder: (context) {
-            if (controller.status == AppStatus.loading) {
+            if (controller.status == AppStatus.loading &&
+                controller.status.valorGet == "email") {
               return widgetCore.RaisedbuttonCoreWidget(
                 loading: true,
                 icon: Icon(FontAwesomeIcons.user),
@@ -99,7 +136,7 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
                           icon: Icon(FontAwesomeIcons.check),
                           snackPosition: SnackPosition.BOTTOM,
                         );
-                        Future.delayed(Duration(seconds: 1)).then((_) {
+                        Future.delayed(Duration(seconds: 2)).then((_) {
                           Modular.to.pop();
                           Modular.to.pushReplacementNamed("/");
                         });
@@ -121,15 +158,48 @@ class _LoginPageState extends ModularState<LoginPage, LoginController> {
           SizedBox(
             height: 8.0,
           ),
-          widgetCore.RaisedbuttonCoreWidget(
-            icon: Icon(FontAwesomeIcons.google),
-            label: "Login com Google",
-            colorButton: Colors.red,
-            onPressed: () {},
-          ),
-          SizedBox(
-            height: 8.0,
-          ),
+          Observer(builder: (context) {
+            if (controller.status == AppStatus.loading &&
+                controller.status.valorGet == "google") {
+              return widgetCore.RaisedbuttonCoreWidget(
+                loading: true,
+                icon: Icon(FontAwesomeIcons.google),
+                label: "Login com Google",
+                colorButton: Colors.red,
+                onPressed: () {},
+              );
+            } else {
+              return widgetCore.RaisedbuttonCoreWidget(
+                icon: Icon(FontAwesomeIcons.google),
+                label: "Login com Google",
+                colorButton: Colors.red,
+                onPressed: () {
+                  controller.signInGoogleLogin(
+                    onSuccess: () {
+                      Get.snackbar(
+                        "Bem vindo ${controller.authController.currentUserData.nome}",
+                        'Login efetuado com sucesso',
+                        icon: Icon(FontAwesomeIcons.check),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                      Future.delayed(Duration(seconds: 2)).then((_) {
+                        Modular.to.pop();
+                        Modular.to.pushReplacementNamed("/");
+                      });
+                    },
+                    onFail: () {
+                      Get.snackbar(
+                        'Olá',
+                        'Não foi possível fazer o login',
+                        icon: Icon(FontAwesomeIcons.meh),
+                        snackPosition: SnackPosition.BOTTOM,
+                      );
+                    },
+                  );
+                },
+              );
+            }
+          }),
         ],
       ),
     );
